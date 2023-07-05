@@ -2,9 +2,12 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import FlashCardContainer from "../components/FlashCardContainer";
 import { useState } from "react";
+import MatchResults from "../components/MatchResults"
+
 export default function Home() {
     const [card, setCard] = useState(0);
     const [user, setUser] = useState(1);
+    const [results, setResults] = useState(false)
 
     const [choices, setChoices] = useState([]);
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
@@ -38,17 +41,22 @@ export default function Home() {
         } else {
             if (card === 4) {
                 console.log("reveal results");
+                setResults(true);
             } else {
                 setCard(card + 1);
             }
         }
     };
-
-    return (
+    
+    return ( 
+        <>
+        { results ? <MatchResults choices={generateMatches()} /> :
         <View style={styles.container}>
             <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
             <StatusBar style="auto" />
         </View>
+        }  
+        </> 
     );
 }
 

@@ -6,7 +6,27 @@ export default function Home() {
     const [card, setCard] = useState(0);
     const [user, setUser] = useState(1);
 
-    const activities = [1, "Go for a walk", 3, 4, 5];
+    const [choices, setChoices] = useState([]);
+    const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+
+    const addChoice = choice => {
+        setChoices([...choices, choice]);
+    };
+    console.log(choices);
+
+    const generateMatches = () => {
+        let activityCount = {};
+        activities.forEach(activity => {
+            activityCount[activity] = 0;
+        });
+        choices.forEach(choice => {
+            activityCount[choice] += 1;
+        });
+        return Object.keys(activityCount).filter(activity => {
+            return activityCount[activity] == 2;
+        });
+    };
+
     const nextCard = () => {
         if (user === 1) {
             if (card === 4) {
@@ -26,7 +46,7 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <FlashCardContainer card={card} nextCard={nextCard} activities={activities} />
+            <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
             <StatusBar style="auto" />
         </View>
     );

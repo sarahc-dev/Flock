@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 
-const FlashCard = ({ nextCard, activities, card }) => {
+const FlashCard = ({ nextCard, activities, card, addChoice }) => {
     return (
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
             <TouchableOpacity onPress={nextCard}>
@@ -9,7 +9,12 @@ const FlashCard = ({ nextCard, activities, card }) => {
 
             <Text>{activities[card]}</Text>
 
-            <TouchableOpacity onPress={nextCard}>
+            <TouchableOpacity
+                onPress={() => {
+                    addChoice(activities[card]);
+                    nextCard();
+                }}
+            >
                 <Text>Yes</Text>
             </TouchableOpacity>
         </View>

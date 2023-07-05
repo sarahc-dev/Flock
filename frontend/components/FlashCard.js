@@ -1,10 +1,10 @@
 import {View, Text} from "react-native"
 import PanGestureHandler from 'react-native-gesture-handler'
-const FlashCard = ({activity}) => {
+const FlashCard = ({children}) => {
  
   return (
-    <View>
-        <Text>{activity}</Text>
+    <View style = {{ flexDirection:'row', alignItems: 'stretch'}}>
+        {children}
     </View>
   )
 }

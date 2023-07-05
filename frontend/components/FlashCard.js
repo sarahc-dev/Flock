@@ -1,10 +1,11 @@
 import {View, Text, TouchableOpacity} from "react-native"
 import PanGestureHandler from 'react-native-gesture-handler'
-const FlashCard = ({children, style, activities, card}) => {
+const FlashCard = ({children, nextCard, activities, card}) => {
+  
  
   return (
     <View style = {{ flexDirection: 'row', justifyContent: 'space-around'}}>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={()=> console.log('yay!')}>
 
             <Text>No</Text>
 
@@ -12,7 +13,7 @@ const FlashCard = ({children, style, activities, card}) => {
 
           <Text>{activities[card]}</Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={nextCard}>
             <Text>Yes</Text>
           </TouchableOpacity>
     </View>

@@ -5,9 +5,9 @@ export default function MatchResults({choices}) {
   return (
     <SafeAreaView>
       <Text>Your Matches</Text>
-      <ScrollView>
-        {choices.map((match) => {
-          return <Text>{match}</Text>;
+      <ScrollView testID="scroll-view-1">
+        {choices.map((match, index) => {
+          return <Text key={index}>{match}</Text>;
         })}
       </ScrollView>
     </SafeAreaView>

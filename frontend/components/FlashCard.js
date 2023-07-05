@@ -1,24 +1,19 @@
-import {View, Text, TouchableOpacity} from "react-native"
-import PanGestureHandler from 'react-native-gesture-handler'
-const FlashCard = ({children, nextCard, activities, card}) => {
-  
- 
-  return (
-    <View style = {{ flexDirection: 'row', justifyContent: 'space-around'}}>
-        <TouchableOpacity onPress={()=> console.log('yay!')}>
+import { View, Text, TouchableOpacity } from "react-native";
 
-            <Text>No</Text>
+const FlashCard = ({ nextCard, activities, card }) => {
+    return (
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+            <TouchableOpacity onPress={nextCard}>
+                <Text>No</Text>
+            </TouchableOpacity>
 
-          </TouchableOpacity>
+            <Text>{activities[card]}</Text>
 
-          <Text>{activities[card]}</Text>
-
-          <TouchableOpacity onPress={nextCard}>
-            <Text>Yes</Text>
-          </TouchableOpacity>
-    </View>
-  )
-}
-
+            <TouchableOpacity onPress={nextCard}>
+                <Text>Yes</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
 
 export default FlashCard;

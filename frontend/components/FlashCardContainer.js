@@ -1,23 +1,14 @@
-import {View, Text, Animated, TouchableOpacity} from "react-native"
-import FlashCard from "./FlashCard"
-import PanGestureHandler from 'react-native-gesture-handler'
-import { useState } from "react"
-const FlashCardContainer = ({card, nextCard, activities,peopleNum}) => {
+import { View, Animated } from "react-native";
+import FlashCard from "./FlashCard";
 
-  return (
-    <View style= {{ flex: 1, justifyContent: 'center'}} >
-        <Animated.View>
-        <FlashCard card={card} activities={activities} nextCard={nextCard}>
-
-          
-
-        </FlashCard>
-      </Animated.View>
-      
-      
-    </View>
-  )
-}
-
+const FlashCardContainer = ({ card, nextCard, activities }) => {
+    return (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+            <Animated.View>
+                <FlashCard card={card} activities={activities} nextCard={nextCard} />
+            </Animated.View>
+        </View>
+    );
+};
 
 export default FlashCardContainer;

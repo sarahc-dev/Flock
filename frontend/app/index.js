@@ -1,31 +1,40 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import FlashCardContainer from "../components/FlashCardContainer"
-import { useState } from "react"
+import { StyleSheet, View } from "react-native";
+import FlashCardContainer from "../components/FlashCardContainer";
+import { useState } from "react";
 export default function Home() {
-  const [card, setCard] = useState(0)
-  const peopleNum = 2
-  const activities = [1,2,3,4,5]
-  const nextCard = () => {
-    if (card == 4) {
-      setCard(-1)
-    }
-    setCard(card+1);
-  }
+    const [card, setCard] = useState(0);
+    const [user, setUser] = useState(1);
 
-  return (
-    <View style={styles.container}>
-        <FlashCardContainer card={card} nextCard={nextCard} peopleNum = {peopleNum} activities={activities}/>
-      <StatusBar style="auto" />
-    </View>
+    const activities = [1, "Go for a walk", 3, 4, 5];
+    const nextCard = () => {
+        if (user === 1) {
+            if (card === 4) {
+                setCard(0);
+                setUser(2);
+            } else {
+                setCard(card + 1);
+            }
+        } else {
+            if (card === 4) {
+                console.log("reveal results");
+            } else {
+                setCard(card + 1);
+            }
+        }
+    };
 
-  );
+    return (
+        <View style={styles.container}>
+            <FlashCardContainer card={card} nextCard={nextCard} activities={activities} />
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-   
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+    },
 });

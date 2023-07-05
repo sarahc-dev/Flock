@@ -7,21 +7,11 @@ const FlashCardContainer = () => {
   const peopleNum = 2
   const activities = [1,2,3,4,5]
   return (
-    <View >
+    <View style= {{ flex: 1, justifyContent: 'center'}} >
         <Animated.View>
-        <FlashCard style={{ }}>
+        <FlashCard card={card} activities={activities}>
 
-          <TouchableOpacity >
-
-            <Text>No</Text>
-
-          </TouchableOpacity>
-
-          <Text>{activities[card]}</Text>
-
-          <TouchableOpacity>
-            <Text>Yes</Text>
-          </TouchableOpacity>
+          
 
         </FlashCard>
       </Animated.View>

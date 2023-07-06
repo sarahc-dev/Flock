@@ -14,8 +14,15 @@ export default function NewEvent() {
     const addName = () => {
         setNameList([...nameList, name]);
         setName('');
-        
     }
+
+    const removeName = (nameToRemove) => {
+        const filteredNames = nameList.filter(name => name !== nameToRemove);
+        setNameList(filteredNames)
+        console.log('remove names called')
+        console.log(nameToRemove)
+    }
+
     useEffect(() => {
         console.log(nameList)
     }, [nameList]) 
@@ -35,8 +42,18 @@ export default function NewEvent() {
 
               }}
             />
-
           </View>
+          <View>
+            {nameList.map((name) => (
+                <View key={name}>
+                <Text >{name}</Text>
+                <TouchableOpacity onPress={() => removeName(name)}>
+                    <Text>X</Text>
+                </TouchableOpacity>
+                </View>
+            ) )}
+          </View>
+
         </SafeAreaView>
         
     )

@@ -3,6 +3,8 @@ import { StyleSheet, View } from "react-native";
 import FlashCardContainer from "../components/FlashCardContainer";
 import { useState } from "react";
 import MatchResults from "../components/MatchResults"
+import { Link } from "expo-router"
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -49,14 +51,17 @@ export default function Home() {
     };
     
     return ( 
-        <>
+        <SafeAreaView>
+        
+            <Link href="/new-event">New Event</Link>
+    
         { results ? <MatchResults choices={generateMatches()} /> :
         <View style={styles.container}>
             <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
             <StatusBar style="auto" />
         </View>
         }  
-        </> 
+        </SafeAreaView> 
     );
 }
 

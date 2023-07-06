@@ -1,15 +1,19 @@
 require('dotenv').config()
 
 const express = require('express')
-
 const mongoose = require('mongoose')
-
 const flock = express()
 
-flock.get('/', (req, res) => {
-  res.json({ message: "Homepage is running" })
+const eventRoutes =  require('./routes/eventRouter')
+
+flock.use(express.json())
+
+flock.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
 })
 
+flock.use('/event', eventRoutes)
 
 mongoose.connect(process.env.MONGO_DB_URI)
   .then(() => {

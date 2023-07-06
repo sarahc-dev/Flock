@@ -6,6 +6,7 @@ export default function NewEvent() {
 
     const [name, setName] = useState('');
     const [nameList, setNameList] = useState([])
+    const [eventName, setEventName] = useState('')
 
     const nameInput = (text) => {
         setName(text);
@@ -23,6 +24,10 @@ export default function NewEvent() {
         console.log(nameToRemove)
     }
 
+    const eventNameInput = (text) => {
+        setEventName(text);
+    }
+
     useEffect(() => {
         console.log(nameList)
     }, [nameList]) 
@@ -33,6 +38,11 @@ export default function NewEvent() {
         <SafeAreaView>
           <View>
             <Text>Create Event</Text>
+            <TextInput
+              placeholder="Enter event name"
+              value={eventName}
+              onChangeText={eventNameInput}
+            />
             <TextInput
               placeholder="Enter name and press enter..."
               value={name}

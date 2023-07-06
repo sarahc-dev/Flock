@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
+import CreateEvent from "../components/CreateEvent";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -51,28 +52,7 @@ export default function NewEvent() {
 
     return (
         <SafeAreaView>
-            <View>
-                <Text>Create Event</Text>
-                <TextInput placeholder="Enter event name" value={eventName} onChangeText={eventNameInput} />
-                <TextInput
-                    placeholder="Enter name and press enter..."
-                    value={name}
-                    onChangeText={nameInput}
-                    onSubmitEditing={() => {
-                        addName();
-                    }}
-                />
-            </View>
-            <View>
-                {nameList.map(name => (
-                    <View key={name}>
-                        <Text>{name}</Text>
-                        <TouchableOpacity onPress={() => removeName(name)}>
-                            <Text>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                ))}
-            </View>
+           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} />
             <View>
                 <TouchableOpacity onPress={submitEvent}>
                     <Text>Generate Link</Text>

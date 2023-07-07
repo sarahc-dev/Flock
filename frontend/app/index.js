@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import FlashCardContainer from "../components/FlashCardContainer";
 import { useState } from "react";
-import MatchResults from "../components/MatchResults"
+import MatchResults from "../components/MatchResults";
+import { Link } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
     const [card, setCard] = useState(0);
     const [user, setUser] = useState(1);
-    const [results, setResults] = useState(false)
+    const [results, setResults] = useState(false);
 
     const [choices, setChoices] = useState([]);
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
@@ -47,16 +49,26 @@ export default function Home() {
             }
         }
     };
-    
-    return ( 
+
+    return (
         <>
-        { results ? <MatchResults choices={generateMatches()} /> :
-        <View style={styles.container}>
-            <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-            <StatusBar style="auto" />
-        </View>
-        }  
-        </> 
+            {/* <View> */}
+
+            {results ? (
+                <MatchResults choices={generateMatches()} />
+            ) : (
+                <>
+                    <View style={styles.container}>
+                        <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
+                        <StatusBar style="auto" />
+                    </View>
+                    <Link style={styles.link} href="/new-event">
+                        New Event
+                    </Link>
+                </>
+            )}
+            {/* </View> */}
+        </>
     );
 }
 
@@ -64,5 +76,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+    },
+    link: {
+        marginBottom: "10%",
+        marginLeft: "10%",
     },
 });

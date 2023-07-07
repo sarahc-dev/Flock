@@ -8,18 +8,24 @@ const EventController = {
     if (!mongoose.Types.ObjectId.isValid(id)){
       return res.status(404).json({error: 'Id param is invalid'})
     }
+
     try {
       const event = await Event.findOne({_id: id})
-      res.status(200).json(event.names)
+
+      if (event === null) {
+        return res.status(400).json({ message: "Id does not exist" })
+      }
+      
+      res.status(200).json(event)
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
   },
   Create: async (req, res) => {
-    const { names } = req.body
+    const { event, names, activities  } = req.body
   try {
-    const event = await Event.create({ names })
-    res.status(200).json(event._id)
+    const newEvent = await Event.create({ event, names, activities })
+    res.status(200).json(newEvent._id)
   } catch (error) {
     res.status(400).json({ error: error.message })
   }

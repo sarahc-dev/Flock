@@ -17,6 +17,23 @@ describe("Event model", () => {
       activities: ["hiking", "hiking again", "hiking once more"]
     });
     expect(event.names[0]).toEqual("andy");
-   
+  });
+
+  it("has an event name", () => {
+    const event = new Event({
+      event: "event",
+      names: ["andy", "pandy"],
+      activities: ["hiking", "hiking again", "hiking once more"]
+    });
+    expect(event.event).toEqual("event");
+  });
+
+  it("has an array of activities", () => {
+    const event = new Event({
+      event: "event",
+      names: ["andy", "pandy"],
+      activities: ["hiking", "hiking again", "hiking once more"]
+    });
+    expect(event.activities[1]).toEqual("hiking again");
   });
 });

@@ -11,9 +11,16 @@ export default function Home() {
     const [card, setCard] = useState(0);
     const [user, setUser] = useState(1);
     const [results, setResults] = useState(false);
+    const [selectedName, setSelectedName] = useState("");
 
     const [choices, setChoices] = useState([]);
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+
+    const dropdownOptions = [
+        { label: "Sarah", value: "Sarah" },
+        { label: "Verity", value: "Verity" },
+        { label: "Evan", value: "Evan" },
+    ];
 
     const addChoice = choice => {
         setChoices([...choices, choice]);
@@ -60,7 +67,7 @@ export default function Home() {
             ) : (
                 <>
                     <View>
-                        <DropdownMenu />
+                        <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
                     </View>
                     <View style={styles.container}>
                         <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />

@@ -59,7 +59,7 @@ export default function Home() {
     };
 
     return (
-        <>
+        <SafeAreaView>
             {/* <View> */}
 
             {results ? (
@@ -71,7 +71,7 @@ export default function Home() {
                     </View>
                     <View style={styles.container}>
                         <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-                        <StatusBar style="auto" />
+                        {/* <StatusBar style="auto" /> */}
                     </View>
                     <Link style={styles.link} href="/new-event">
                         New Event
@@ -79,17 +79,17 @@ export default function Home() {
                 </>
             )}
             {/* </View> */}
-        </>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "#fff",
+        // flex: 1,
+        // backgroundColor: "#fff",
     },
     link: {
-        marginBottom: "10%",
-        marginLeft: "10%",
+        // marginBottom: "10%",
+        // marginLeft: "10%",
     },
 });

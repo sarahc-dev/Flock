@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { Picker } from "@react-native-picker/picker";
+import RNPickerSelect from "react-native-picker-select";
 import { View } from "react-native";
 
 const DropdownMenu = ({ selectedName, setSelectedName, dropdownOptions }) => {
     console.log(selectedName);
     return (
         <View>
-            <Picker selectedValue={selectedName} onValueChange={itemValue => setSelectedName(itemValue)}>
-                <Picker.Item label="Select an option..." value={null} />
-                {dropdownOptions.map(option => (
-                    <Picker.Item key={option.value} label={option.label} value={option.value} />
-                ))}
-            </Picker>
+            <RNPickerSelect placeholder={{ label: "Select your name...", value: null }} items={dropdownOptions} onValueChange={value => setSelectedName(value)} />
         </View>
     );
 };

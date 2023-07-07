@@ -1,0 +1,31 @@
+[
+    {
+        "title":"Manchester International Festival 2023",
+        "date":{"start_date":"Jul 7","when":"Jun 30 – Jul 16"},
+        "address":["Aviva Studios, home of Factory International, Aviva Studios, Water St","Manchester, United Kingdom"],
+        "link":"https://www.songkick.com/festivals/141491-manchester-international/id/41146344-manchester-international-festival-2023?utm_medium=organic&utm_source=microformat",
+        "event_location_map":{
+            "image":"https://www.google.com/maps/vt/data=v5ufbVOefhSHLl6Cpoz6QnofFjX_qajPDvaqB3TiM5BXAxIce0SHJ7h4yi1lnc_CDw9WDBtID7zLfqkPiwoPxiCERklfVdsYw3XRxXbHpBD2pmvJIOo",
+            "link":"https://www.google.com/maps/place//data=!4m2!3m1!1s0x487bb1ddfc68b2d9:0xbac0ef715ba5aeb2?sa=X&ved=2ahUKEwjKzfbEt_z_AhWbVTABHfs8B30Q9eIBegQIARAA&hl=en",
+            "serpapi_link":"https://serpapi.com/search.json?data=%214m2%213m1%211s0x487bb1ddfc68b2d9%3A0xbac0ef715ba5aeb2&engine=google_maps&google_domain=google.com&hl=en&q=Events+in+Manchester&type=place"
+        },
+        "ticket_info":[
+            {
+                "source":"Songkick.com",
+                "link":"https://www.songkick.com/festivals/141491-manchester-international/id/41146344-manchester-international-festival-2023?utm_medium=organic&utm_source=microformat",
+                "link_type":"tickets"
+            },
+            {
+                "source":"Bandsintown.com",
+                "link":"https://www.bandsintown.com/f/122292-manchester-international-festival-2023?came_from=209",
+                "link_type":"tickets"
+            }
+        ],
+        "venue":{
+            "name":"Aviva Studios, home of Factory International",
+            "reviews":49,"link":"https://www.google.com/search?hl=en&q=Aviva+Studios,+home+of+Factory+International&ludocid=13457018956730969778&ibp=gwp%3B0,7"
+        },
+        "thumbnail":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeSrU8yAmFylFk-CfWGdQ1-YMZU3KgETGrF0Un7ao&s",
+        "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkWJ9zSvx5VtmEcZqjF8ChyjxXBabk-H-dvYEgGSbxSQ&s=10"
+    }
+]

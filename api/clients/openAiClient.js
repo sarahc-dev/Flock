@@ -33,9 +33,12 @@ class OpenAiClient {
   }
 }
 
-const callback = (data) => {
-  console.log(data);
-};
+module.exports = OpenAiClient;
 
-const client = new OpenAiClient("London");
-client.eventSearch(callback);
+// USAGE
+// const callback = (data) => {
+//   console.log(data);
+// };
+//
+// const client = new OpenAiClient("London");
+// client.eventSearch(callback);

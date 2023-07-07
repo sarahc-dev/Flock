@@ -26,14 +26,17 @@ class SerpApiClient {
   }
 }
 
-const callback = (data) => {
-  console.log(JSON.stringify(data[0]));
-};
+module.exports = SerpApiClient;
 
-client = new SerpApiClient("Manchester", "next_week");
-client.eventSearch(callback);
+// USAGE
+// const callback = (data) => {
+//   console.log(data);
+// };
+//
+// client = new SerpApiClient("Manchester", "next_week");
+// client.eventSearch(callback);
 
-// For Reference: different date options you can use:-
+// REFERENCE: different date options you can use:-
 // date:today - Today's Events
 // date:tomorrow - Tomorrow's Events
 // date:week - This Week's Events

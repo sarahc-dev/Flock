@@ -15,6 +15,7 @@
     ]
   },
   "dependencies": {
+    "@react-native-picker/picker": "2.4.8",
     "expo": "~48.0.18",
     "expo-constants": "~14.2.1",
     "expo-linking": "~4.0.1",

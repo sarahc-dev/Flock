@@ -5,6 +5,7 @@ import { useState } from "react";
 import MatchResults from "../components/MatchResults";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import DropdownMenu from "../components/DropdownMenu";
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -58,6 +59,9 @@ export default function Home() {
                 <MatchResults choices={generateMatches()} />
             ) : (
                 <>
+                    <View>
+                        <DropdownMenu />
+                    </View>
                     <View style={styles.container}>
                         <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
                         <StatusBar style="auto" />

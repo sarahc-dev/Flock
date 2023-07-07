@@ -9,7 +9,7 @@ class SerpApiClient {
     this.date = date;
   }
 
-  eventSearch(callback) {
+  activitySearch(callback) {
     const params = {
       engine: "google_events",
       q: `Events in ${this.location}`,
@@ -34,7 +34,7 @@ module.exports = SerpApiClient;
 // };
 //
 // client = new SerpApiClient("Manchester", "next_week");
-// client.eventSearch(callback);
+// client.activitySearch(callback);
 
 // REFERENCE: different date options you can use:-
 // date:today - Today's Events

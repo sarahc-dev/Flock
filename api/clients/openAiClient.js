@@ -10,7 +10,7 @@ class OpenAiClient {
     this.prompt = `What are some activities I can do with friends in ${location}? Only give me the list. Make each suggestion less than 10 words. Make output new line seperated without numbers.`;
   }
 
-  eventSearch(callback) {
+  activitySearch(callback) {
     this.openai
       .createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -41,4 +41,4 @@ module.exports = OpenAiClient;
 // };
 //
 // const client = new OpenAiClient("London");
-// client.eventSearch(callback);
+// client.activitySearch(callback);

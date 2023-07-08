@@ -7,6 +7,7 @@ export default function NewEvent() {
     const [name, setName] = useState("");
     const [nameList, setNameList] = useState([]);
     const [eventName, setEventName] = useState("");
+    const [link, setLink] = useState("")
 
     const nameInput = text => {
         setName(text);
@@ -29,7 +30,7 @@ export default function NewEvent() {
     };
 
     const submitEvent = () => {
-        fetch("https://localhost:1066/event", {
+        fetch("http://192.168.0.19:8080/event", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +40,9 @@ export default function NewEvent() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                
                 // return "id"
+                setLink(`/event/${data}`)
             })
             .catch(error => {
                 console.error(error);
@@ -61,6 +64,7 @@ export default function NewEvent() {
             <View>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
             </View>
+            <Link href={link}>Test - Linking</Link>
         </SafeAreaView>
     );
 }

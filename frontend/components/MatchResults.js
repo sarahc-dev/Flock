@@ -1,7 +1,6 @@
 import { ScrollView, Text, SafeAreaView } from "react-native";
 
-export default function MatchResults({choices}) {
-
+export default function MatchResults({ choices }) {
   return (
     <SafeAreaView>
       <Text>Your Matches</Text>

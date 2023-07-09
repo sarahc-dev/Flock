@@ -13,11 +13,9 @@ describe(MatchResults, () => {
   test("Scrollview contains the choices passed in as props", () => {
     const choices = ["GravyBoat", "SalmonHat"];
     render(<MatchResults choices={choices} />);
-    const item1 = screen.getByTestId("scroll-view-1");
-    const textElements = item1.findAllByType(Text);
-
-    expect(textElements[0]).toHaveTextContent("GravyBoat");
-    expect(textElements[1]).toHaveTextContent("SalmonHat");
-    expect(textElements.length).toBe(2);
+    const items = screen.getAllByTestId("match");
+    expect(items.length).toBe(2);
+    expect(items[0].props.children).toBe("GravyBoat");
+    expect(items[1].props.children).toBe("SalmonHat");
   });
 });

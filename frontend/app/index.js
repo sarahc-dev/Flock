@@ -3,13 +3,14 @@ import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-nat
 import { Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
+import * as Clipboard from 'expo-clipboard';
 
 export default function NewEvent() {
     const [name, setName] = useState("");
     const [nameList, setNameList] = useState([]);
     const [eventName, setEventName] = useState("");
-    const [id, setId] = useState("")
-    const [link, setLink] = useState("")
+    const [id, setId] = useState("");
+    const [link, setLink] = useState("");
 
     // console.log(Linking.createURL("/event/123"))
 
@@ -54,9 +55,13 @@ export default function NewEvent() {
             });
     };
 
-    useEffect(() => {
-        console.log(nameList);
-    }, [nameList]);
+    const copyToClipboard = async () => {
+        await Clipboard.setStringAsync(link)
+    }
+
+    // useEffect(() => {
+    //     console.log(nameList);
+    // }, [nameList]);
 
     return (
         <SafeAreaView>
@@ -66,6 +71,11 @@ export default function NewEvent() {
                     <Text>Generate Link</Text>
                 </TouchableOpacity>
                 <Text>{`Your link is: ${link}`}</Text>
+                
+                <TouchableOpacity onPress={copyToClipboard}>
+                    <Text>Copy</Text>
+                </TouchableOpacity>
+                
             </View>
             <View>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>

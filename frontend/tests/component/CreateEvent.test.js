@@ -1,17 +1,20 @@
-import { render, screen } from "@testing-library/react-native";
-import { Text } from "react-native";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import CreateEvent from "../../components/CreateEvent";
 
-// needs to be created
 describe(CreateEvent, () => {
+  let eventNameInput;
+  let nameInput;
+  let addName;
+  let removeName;
+
   beforeEach(() => {
     const name = "testName1";
-    const nameInput = jest.fn();
+    nameInput = jest.fn();
     const nameList = ["testName2", "testName3"];
-    const eventName = "";
-    const addName = jest.fn();
-    const removeName = jest.fn();
-    const eventNameInput = jest.fn();
+    const eventName = "testEventName";
+    addName = jest.fn();
+    removeName = jest.fn();
+    eventNameInput = jest.fn();
     render(
       <CreateEvent
         name={name}
@@ -30,33 +33,43 @@ describe(CreateEvent, () => {
     expect(textElement).toBeDefined();
   });
 
-  test("starts with an empty event name", () => {
-    const textInputElement = screen.getByPlaceholderText("Enter event name");
-    expect(textInputElement).toHaveTextContent("");
+  test("shows the event name provided by props", () => {
+    const textInputElement = screen.getByTestId("event-name-text-input");
+    expect(textInputElement.props.value).toBe("testEventName");
+  });
+    
+  test("eventNameInput is called with new event name when text changes", () => {
+    const textInputElement = screen.getByTestId("event-name-text-input");
+    fireEvent.changeText(textInputElement, "Test Name");
+    expect(eventNameInput).toHaveBeenCalledWith("Test Name");
+  });
+  
+  test("shows a person's name provided by props", () => {
+    const textInputElement = screen.getByTestId("name-text-input");
+    expect(textInputElement.props.value).toBe("testName1");
+  });
+    
+  test("nameInput is called with new name when text changes", () => {
+    fireEvent.changeText(screen.getByTestId("name-text-input"), "T")
+    expect(nameInput).toHaveBeenCalledWith("T");
+  });
+  
+  test("addName is called when name is submitted", () => {
+    const textInputElement = screen.getByTestId("name-text-input");
+    fireEvent(textInputElement, "submitEditing");
+    expect(addName).toHaveBeenCalledTimes(1);
   });
 
-  xtest("displays the event name when one is provided", () => {});
-
-  xtest("eventNameInput is called with new event name when text changes", () => {});
-
-  test("starts with an empty name", () => {
-    const textInputElement = screen.getByPlaceholderText(
-      "Enter name and press enter..."
-    );
-    expect(textInputElement).toHaveTextContent("");
+  test("diplays names that have been added", () => {
+    const names = screen.getAllByTestId("name-text");
+    expect(names[0].props.children).toBe("testName2")
+    expect(names[1].props.children).toBe("testName3")
+    expect(names.length).toBe(2);
   });
-
-  xtest("displays your name when one is provided", () => {});
-
-  xtest("nameInput is called with new name when text changes", () => {});
-
-  xtest("addName is called when friend's name is submitted", () => {});
-
-  xtest("there are no names displayed at first", () => {});
-
-  xtest("diplays friend's names that have been added", () => {});
-
-  xtest("if friend's names are passed in they are displayed", () => {});
-
-  xtest("removeName is called with the name when name is deleted", () => {});
+  
+  test("removeName is called with the name when name is deleted", () => {
+    const deleteButton = screen.getAllByTestId("remove-name")[0];
+    fireEvent(deleteButton, "press");
+    expect(removeName).toHaveBeenCalledWith("testName2")
+  });
 });

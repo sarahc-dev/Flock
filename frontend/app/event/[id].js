@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from 'expo-router';
-import { SafeAreaView, Text } from "react-native"
+import { SafeAreaView, Text, View } from "react-native";
+import { Link } from "expo-router"
 
 export default function Event() {
     const { id } = useLocalSearchParams();
@@ -18,6 +19,10 @@ export default function Event() {
         <SafeAreaView>
         <Text>Dynamic event page - {id}</Text>
         {data && <Text>{data.eventName}</Text>}
+
+        <View>
+            <Link href="/">Go Home</Link>
+        </View>
         </SafeAreaView>
     )
 }

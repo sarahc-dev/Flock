@@ -80,7 +80,7 @@ export default function NewEvent() {
             <View>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
             </View>
-            <Link href={`/event/${id}`}>Test - Linking</Link>
+            <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
         </SafeAreaView>
     );
 }

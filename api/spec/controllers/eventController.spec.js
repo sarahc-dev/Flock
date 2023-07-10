@@ -15,7 +15,7 @@ describe("/event", () => {
         .send({
           eventName: "event",
           names: ["andy", "pandy"],
-          activities: ["hiking", "hiking again", "hiking once more"]
+          location: "London"
         })
       expect(response.statusCode).toBe(200)
     })
@@ -26,7 +26,7 @@ describe("/event", () => {
         .send({
           eventName: "event",
           names: ["andy", "pandy"],
-          activities: ["hiking", "hiking again", "hiking once more"]
+          location: "London"
         })
       let event = await Event.find()
       let newEvent = event[event.length - 1]

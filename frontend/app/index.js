@@ -5,6 +5,7 @@ import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
+import ListItem from "../components/ListItem";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -66,6 +67,7 @@ export default function NewEvent() {
 
     return (
         <SafeAreaView>
+            
            <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName}/>
             <View>
                 <TouchableOpacity onPress={submitEvent}>
@@ -82,6 +84,7 @@ export default function NewEvent() {
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
             </View>
             <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
+            <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
         </SafeAreaView>
     );
 }

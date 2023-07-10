@@ -13,6 +13,7 @@ const CreateEvent = ({ name, nameInput, nameList, eventName, addName, removeName
             onChangeText={nameInput}
             onSubmitEditing={() => {
                 addName();
+                
             }}
         />
         </View>

@@ -10,6 +10,7 @@ const FlashCard = ({ nextCard, activities, card, addChoice }) => {
             <Text>{activities[card]}</Text>
 
             <TouchableOpacity
+                testID={"accept-activity"}
                 onPress={() => {
                     addChoice(activities[card]);
                     nextCard();

@@ -4,6 +4,7 @@ import { Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
+import { IP } from "@env";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -35,7 +36,7 @@ export default function NewEvent() {
     };
 
     const submitEvent = () => {
-        fetch("http://192.168.0.19:8080/event", {
+        fetch(`http://${IP}:8080/event`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

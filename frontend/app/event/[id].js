@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, Text, View } from "react-native";
 import { Link } from "expo-router"
+import { IP } from "@env"
 
 export default function Event() {
     const { id } = useLocalSearchParams();
@@ -9,7 +10,7 @@ export default function Event() {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://192.168.0.19:8080/event/${id}`)
+            fetch(`http://${IP}:8080/event/${id}`)
             .then(response => response.json())
             .then(data => setData(data))
         }

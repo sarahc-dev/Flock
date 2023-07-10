@@ -13,7 +13,7 @@ describe("/event", () => {
       let response = await request(app)
         .post("/event")
         .send({
-          event: "event",
+          eventName: "event",
           names: ["andy", "pandy"],
           activities: ["hiking", "hiking again", "hiking once more"]
         })
@@ -24,13 +24,13 @@ describe("/event", () => {
       await request(app)
         .post("/event")
         .send({
-          event: "event",
+          eventName: "event",
           names: ["andy", "pandy"],
           activities: ["hiking", "hiking again", "hiking once more"]
         })
       let event = await Event.find()
       let newEvent = event[event.length - 1]
-      expect(newEvent.event).toEqual("event")
+      expect(newEvent.eventName).toEqual("event")
     })
   })
   

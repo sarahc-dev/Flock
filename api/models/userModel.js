@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  name: String
+  name: String,
+  choices: Array
 }, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema)

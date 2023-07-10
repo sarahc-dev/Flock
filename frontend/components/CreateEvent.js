@@ -1,11 +1,12 @@
 import { View, Text, TextInput, TouchableOpacity} from "react-native";
-const CreateEvent = ({ name, nameInput, nameList, eventName, addName, removeName, eventNameInput}) => {
+const CreateEvent = ({ name, nameInput, nameList, eventName, addName, removeName, eventNameInput, locationName, locationNameInput }) => {
 
     return(
         <>
         <View>
         <Text>Create Event</Text>
         <TextInput testID={"event-name-text-input"} placeholder="Enter event name" value={eventName} onChangeText={eventNameInput} />
+        <TextInput testID={"location-name-text-input"} placeholder="Enter location" value={locationName} onChangeText={locationNameInput}/>
         <TextInput
             testID={"name-text-input"}
             placeholder="Enter name and press enter..."

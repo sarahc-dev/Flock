@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const EventController = {
   Index: async (req, res) => {
     const { id } = req.params
-    console.log(id)
+    
     if (!mongoose.Types.ObjectId.isValid(id)){
       return res.status(404).json({error: 'Id param is invalid'})
     }
@@ -23,6 +23,7 @@ const EventController = {
   },
   Create: async (req, res) => {
     const { eventName, names  } = req.body
+    
   try {
     const activities = []
     const newEvent = await Event.create({ eventName, names, activities })

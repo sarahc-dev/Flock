@@ -2,11 +2,18 @@ import { useState, useEffect } from "react";
 import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
+import * as Linking from 'expo-linking';
+import * as Clipboard from 'expo-clipboard';
+import { IP } from "@env";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
     const [nameList, setNameList] = useState([]);
     const [eventName, setEventName] = useState("");
+    const [id, setId] = useState("");
+    const [link, setLink] = useState("");
+
+    // console.log(Linking.createURL("/event/123"))
 
     const nameInput = text => {
         setName(text);
@@ -29,7 +36,7 @@ export default function NewEvent() {
     };
 
     const submitEvent = () => {
-        fetch("https://localhost:1066/event", {
+        fetch(`http://${IP}:8080/event`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,16 +46,23 @@ export default function NewEvent() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                
                 // return "id"
+                setId(data)
+                setLink(Linking.createURL(`/event/${data}`))
             })
             .catch(error => {
                 console.error(error);
             });
     };
 
-    useEffect(() => {
-        console.log(nameList);
-    }, [nameList]);
+    const copyToClipboard = async () => {
+        await Clipboard.setStringAsync(link)
+    }
+
+    // useEffect(() => {
+    //     console.log(nameList);
+    // }, [nameList]);
 
     return (
         <SafeAreaView>
@@ -57,10 +71,17 @@ export default function NewEvent() {
                 <TouchableOpacity onPress={submitEvent}>
                     <Text>Generate Link</Text>
                 </TouchableOpacity>
+                <Text>{`Your link is: ${link}`}</Text>
+                
+                <TouchableOpacity onPress={copyToClipboard}>
+                    <Text>Copy</Text>
+                </TouchableOpacity>
+                
             </View>
             <View>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
             </View>
+            <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
         </SafeAreaView>
     );
 }

@@ -10,6 +10,15 @@ export default function Result(props) {
     // const { activities} = props
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
 
+    // {_id: udfuadfa, names: [userObject], activities: [], eventName: "something"}
+
+    // {name: "Sarah", choices: ["dnfsdf", "dfss"]}
+
+    // What if said no to all choices
+
+    // isComplete? Has each person got an array of choices?
+    // either include no choices or a default option if no choices
+
     useEffect(() => {
         if (id) {
             fetch(`http://${IP}:8080/event/${id}`)
@@ -17,6 +26,13 @@ export default function Result(props) {
             .then(data => setData(data))
         }
     }, [id])
+
+    useEffect(() => {
+        // isComplete?
+        data.names.forEach((name) => {
+
+        })
+    }, [data])
 
     const renderItem = ({item}) => (
         <ListItem activity={item} />

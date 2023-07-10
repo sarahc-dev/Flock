@@ -9,6 +9,7 @@ export default function Result(props) {
     const [data, setData] = useState()
     // const { activities} = props
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+
     useEffect(() => {
         if (id) {
             fetch(`http://${IP}:8080/event/${id}`)
@@ -16,26 +17,19 @@ export default function Result(props) {
             .then(data => setData(data))
         }
     }, [id])
-    const renderItem = ({activity}) => 
-      {console.log(activity)
 
-      return <ListItem activity={activity} />
-      }
-        console.log(activities)
+    const renderItem = ({item}) => (
+        <ListItem activity={item} />
+    )
+       
     return (
         <SafeAreaView>
         <Text>Dynamic result page </Text>
         {data && <><Text>{data.eventName}</Text>
-        <FlatList data={activities}
-          renderItem={renderItem}
-        /></>}
-
-
-        {/* <FlatList data={weatherData} 
-    renderItem={renderItem} 
-    keyExtractor={(item)=>item.dt_txt} 
-    ItemSeparatorComponent={()=> <View style={{backgroundColor:'blue', height: 2}}/> }
-    ListEmptyComponent={<Empty />}  /> */}
+        <FlatList
+        data={activities}
+        renderItem={renderItem}
+      /></>}
 
         <View>
             <Link href="/">Go Home</Link>

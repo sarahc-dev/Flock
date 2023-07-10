@@ -2,7 +2,7 @@ import React from "react"
 import { Text, SafeAreaView, StyleSheet, FlatList, View, StatusBar, ImageBackground } from "react-native"
 import { Feather } from '@expo/vector-icons'
 const ListItem =({activity})=> {
-  console.log(activity)
+  // console.log(activity)
   return (
     <View style={styles.item}>
       <Feather name={'sun'} size = {50} color={'black'}/>

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const eventSchema = new Schema({
   event: String,
-  names: Array,
+  names: [{ type: Schema.Types.ObjectId, ref: "userModel", default: [] }],
   activities: Array
 }, { timestamps: true })
 

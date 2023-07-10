@@ -22,7 +22,7 @@ const EventController = {
     }
   },
   Create: async (req, res) => {
-    const { eventName, names  } = req.body
+    const { eventName, names } = req.body
     
   try {
     const activities = []

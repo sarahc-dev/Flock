@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownMenu from "../components/DropdownMenu";
 import { IP } from "@env";
+import { useLocalSearchParams } from 'expo-router';
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -20,7 +21,10 @@ export default function Home() {
 
 
     useEffect(() => {
-      fetch(`http://${IP}:8080/event/64ac02a6d8f4e024dc9fa59b`, {
+      const { id } = useLocalSearchParams()
+      console.log(id)
+
+      fetch(`http://${IP}:8080/event/${id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -32,9 +36,6 @@ export default function Home() {
             label: user.name,
             value: user.name
         }));
-
-        console.log(updatedOptions)
-            
           setDropDownOptions(updatedOptions);
         })
         .catch(error => {

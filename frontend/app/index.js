@@ -13,6 +13,7 @@ export default function NewEvent() {
     const [eventName, setEventName] = useState("");
     const [id, setId] = useState("");
     const [link, setLink] = useState("");
+    const [locationName, setLocationName] = useState("")
 
     // console.log(Linking.createURL("/event/123"))
 
@@ -36,13 +37,17 @@ export default function NewEvent() {
         setEventName(text);
     };
 
+    const locationNameInput = text => {
+        setLocationName(text)
+    }
+
     const submitEvent = () => {
         fetch(`http://${IP}:8080/event`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ eventName: eventName, names: nameList }),
+            body: JSON.stringify({ eventName: eventName, names: nameList, location: locationName }),
         })
             .then(response => response.json())
             .then(data => {
@@ -67,8 +72,7 @@ export default function NewEvent() {
 
     return (
         <SafeAreaView>
-            
-           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName}/>
+           <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName} locationName={locationName} locationNameInput={locationNameInput}/>
             <View>
                 <TouchableOpacity onPress={submitEvent}>
                     <Text>Generate Link</Text>

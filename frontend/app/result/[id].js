@@ -52,6 +52,7 @@ export default function Result(props) {
 // console.log(generateMatches())
 const matches = generateMatches()
     useEffect(() => {
+      
         console.log(matches)
         matches.length > 0 ? setIsComplete(true) : console.log('waiting');
     }, [data])

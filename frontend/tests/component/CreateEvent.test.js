@@ -6,6 +6,7 @@ describe(CreateEvent, () => {
   let nameInput;
   let addName;
   let removeName;
+  let locationNameInput;
 
   beforeEach(() => {
     const name = "testName1";
@@ -15,6 +16,9 @@ describe(CreateEvent, () => {
     addName = jest.fn();
     removeName = jest.fn();
     eventNameInput = jest.fn();
+    const locationName = "testLocation"
+    locationNameInput = jest.fn()
+
     render(
       <CreateEvent
         name={name}
@@ -24,6 +28,8 @@ describe(CreateEvent, () => {
         addName={addName}
         removeName={removeName}
         eventNameInput={eventNameInput}
+        locationName={locationName}
+        locationNameInput={locationNameInput}
       />
     );
   });
@@ -72,4 +78,14 @@ describe(CreateEvent, () => {
     fireEvent(deleteButton, "press");
     expect(removeName).toHaveBeenCalledWith("testName2")
   });
-});
+
+  test("shows the location name provided by props", () => {
+    const textInputElement = screen.getByTestId("location-name-text-input");
+    expect(textInputElement.props.value).toBe("testLocation");
+  });
+    
+  test("locationNameInput is called with new location name when text changes", () => {
+    const textInputElement = screen.getByTestId("location-name-text-input");
+    fireEvent.changeText(textInputElement, "locationName");
+    expect(locationNameInput).toHaveBeenCalledWith("locationName");
+  });});

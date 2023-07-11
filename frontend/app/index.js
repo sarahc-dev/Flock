@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { View, Text, TextInput, SafeAreaView, TouchableOpacity, StyleSheet } from "react-native";
+import { useState } from "react";
+import { Image, View, Text, SafeAreaView, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
-import ListItem from "../components/ListItem";
-import { BACKGROUNDIMAGE } from "../styles/styles";
+import { SIZES, BACKGROUNDIMAGE } from "../styles/styles";
+import Header from "../components/Header";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -15,8 +15,6 @@ export default function NewEvent() {
     const [id, setId] = useState("");
     const [link, setLink] = useState("");
     const [locationName, setLocationName] = useState("")
-
-    // console.log(Linking.createURL("/event/123"))
 
     const nameInput = text => {
         setName(text);
@@ -52,9 +50,8 @@ export default function NewEvent() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                
-                // return "id"
+                // console.log(data);
+                // returns id
                 setId(data)
                 setLink(Linking.createURL(`/event/${data}`))
             })
@@ -67,12 +64,13 @@ export default function NewEvent() {
         await Clipboard.setStringAsync(link)
     }
 
-    // useEffect(() => {
-    //     console.log(nameList);
-    // }, [nameList]);
+    
 
     return (
         <SafeAreaView style={styles.image}>
+            <Header name={'Flock'}/>
+        <ScrollView style={{padding: SIZES.medium}}>
+
            <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName} locationName={locationName} locationNameInput={locationNameInput}/>
             <View >
                 <TouchableOpacity onPress={submitEvent}>
@@ -85,11 +83,15 @@ export default function NewEvent() {
                 </TouchableOpacity>
                 
             </View>
-            <View>
+            </ScrollView>
+            <View style={{}}>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
+                <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
+                <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
+                
             </View>
-            <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
-            <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
+            
+            
         </SafeAreaView>
     );
 }

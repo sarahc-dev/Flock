@@ -3,6 +3,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, Text, View } from "react-native";
 import { Link } from "expo-router"
 import { IP } from "@env"
+import Header from "../../components/Header";
 
 export default function Event() {
     const { id } = useLocalSearchParams();
@@ -18,6 +19,7 @@ export default function Event() {
 
     return (
         <SafeAreaView>
+        <Header name={'Events'} />
         <Text>Dynamic event page - {id}</Text>
         {data && <Text>{data.eventName}</Text>}
 

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { View, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView} from "react-native";
+import { Stack, Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
 import ListItem from "../components/ListItem";
+import Header from "../components/Header";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -71,7 +72,10 @@ export default function NewEvent() {
     // }, [nameList]);
 
     return (
-        <SafeAreaView>
+
+        <SafeAreaView style={{ flex: 1}}>
+            <Header name={'Home'}/>
+        <ScrollView>
            <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName} locationName={locationName} locationNameInput={locationNameInput}/>
             <View>
                 <TouchableOpacity onPress={submitEvent}>
@@ -84,11 +88,14 @@ export default function NewEvent() {
                 </TouchableOpacity>
                 
             </View>
-            <View>
+            </ScrollView>
+            <View style={{}}>
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
+                <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
+                <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
             </View>
-            <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
-            <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
+            
+            
         </SafeAreaView>
     );
 }

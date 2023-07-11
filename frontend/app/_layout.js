@@ -1,7 +1,17 @@
-import { Slot } from "expo-router";
+import { Stack } from 'expo-router';
 
-const Layout = () => {
-  return <Slot />;
-};
-
-export default Layout;
+export default function Layout() {
+  return (
+    <Stack title={''}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    />
+  );
+}

@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import FlashCardContainer from "../components/FlashCardContainer";
+import FlashCardContainer from "../../components/FlashCardContainer";
 import { useEffect, useState } from "react";
-import MatchResults from "../components/MatchResults";
+import MatchResults from "../../components/MatchResults";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import DropdownMenu from "../components/DropdownMenu";
+import DropdownMenu from "../../components/DropdownMenu";
 import { IP } from "@env";
 import { useLocalSearchParams } from 'expo-router';
 
@@ -18,12 +18,16 @@ export default function Home() {
 
     const [choices, setChoices] = useState([]);
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+    console.log(dropdownOptions)
+
+
+    const { id } = useLocalSearchParams();
+        // const [data, setData] = useState()
 
 
     useEffect(() => {
-      const { id } = useLocalSearchParams()
-      console.log(id)
-
+      
+     if (id) {
       fetch(`http://${IP}:8080/event/${id}`, {
         method: "GET",
         headers: {
@@ -36,16 +40,31 @@ export default function Home() {
             label: user.name,
             value: user.name
         }));
+          console.log(updatedOptions)
           setDropDownOptions(updatedOptions);
         })
         .catch(error => {
           console.error(error);
         });
-    }, [])
+      }
+    }, [id])
 
     const addChoice = choice => {
         setChoices([...choices, choice]);
     };
+
+    // useEffect(() => {
+    //     const { id } = useLocalSearchParams()
+
+    //     fetch(`http://${IP}:8080/user/${id}`, {
+    //       method: "PATCH",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ choices: choices })
+    //     })
+    // }, [results])
+
     console.log(choices);
 
     const generateMatches = () => {

@@ -1,4 +1,5 @@
 const Event = require('../models/eventModel')
+const User = require('../models/userModel')
 const mongoose = require('mongoose')
 
 const EventController = {
@@ -23,10 +24,13 @@ const EventController = {
   },
   Create: async (req, res) => {
     const { eventName, names } = req.body
-    
+
   try {
-    const activities = []
-    const newEvent = await Event.create({ eventName, names, activities })
+    const users = names.map((name) => {
+      return new User({ name })
+    })
+    console.log(users)
+    const newEvent = await Event.create({ eventName, names: users })
     res.status(200).json(newEvent._id)
   } catch (error) {
     res.status(400).json({ error: error.message })

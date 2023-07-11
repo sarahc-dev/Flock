@@ -45,7 +45,7 @@ export default function NewEvent() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                console.log(`id from backend ${data}`);
                 
                 // return "id"
                 setId(data)
@@ -79,7 +79,7 @@ export default function NewEvent() {
                 
             </View>
             <View>
-                <Link href="/event-chooser">Choose Activities (next page)</Link>
+                <Link href={`/event-chooser/${id}`}>Choose Activities (next page)</Link>
             </View>
             <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
         </SafeAreaView>

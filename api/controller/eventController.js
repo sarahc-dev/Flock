@@ -13,7 +13,7 @@ const EventController = {
     }
 
     try {
-      const event = await Event.findOne({_id: id})
+      const event = await Event.findOne({_id: id}).populate('names')
 
       if (event === null) {
         return res.status(400).json({ message: "Id does not exist" })
@@ -27,10 +27,11 @@ const EventController = {
   Create: async (req, res) => {
     const { eventName, names, location  } = req.body
 
-    const users = names.map( async (name) => {
-      const user = await new User({ name });
-      return user;
-    })
+    const users = await Promise.all(names.map( async (name) => {
+      return await User.create({ name });
+    }));
+
+    console.log(users)
 
     const client = new SerpApiClient(location)
     const clientAi = new OpenAiClient(location)
@@ -42,7 +43,7 @@ const EventController = {
         const activities = [...serpActivities.slice(0, 2), ...data]
       
         try {
-          const newEvent = await Event.create({ eventName, names: users, activities })
+          const newEvent = await Event.create({ eventName: eventName, names: users, activities: activities })
           res.status(200).json(newEvent._id)
         } catch (error) {
           res.status(400).json({ error: error.message })

@@ -23,6 +23,7 @@ export default function Home() {
 
     const { id } = useLocalSearchParams();
         // const [data, setData] = useState()
+        console.log(id)
 
 
     useEffect(() => {
@@ -36,6 +37,7 @@ export default function Home() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
           const updatedOptions = data.names.map(user => ({
             label: user.name,
             value: user.name

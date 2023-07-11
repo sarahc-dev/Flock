@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import FlashCardContainer from "../../components/FlashCardContainer";
 import { useEffect, useState } from "react";
 import MatchResults from "../../components/MatchResults";
@@ -15,16 +15,14 @@ export default function Home() {
     const [results, setResults] = useState(false);
     const [selectedName, setSelectedName] = useState("");
     const [dropdownOptions, setDropDownOptions] = useState([])
-
     const [choices, setChoices] = useState([]);
-    const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
-    console.log(dropdownOptions)
+    const [activities, setActivities] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [selectedUserId, setSelectedUserId] = useState("");
 
 
     const { id } = useLocalSearchParams();
-        // const [data, setData] = useState()
-        console.log(id)
-
+    console.log(id)
 
     useEffect(() => {
       
@@ -37,12 +35,13 @@ export default function Home() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+          setActivities(data.activities)
+          setUsers(data.names)
+
           const updatedOptions = data.names.map(user => ({
             label: user.name,
             value: user.name
         }));
-          console.log(updatedOptions)
           setDropDownOptions(updatedOptions);
         })
         .catch(error => {
@@ -55,32 +54,30 @@ export default function Home() {
         setChoices([...choices, choice]);
     };
 
-    // useEffect(() => {
-    //     const { id } = useLocalSearchParams()
-
-    //     fetch(`http://${IP}:8080/user/${id}`, {
-    //       method: "PATCH",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ choices: choices })
-    //     })
-    // }, [results])
-
     console.log(choices);
 
-    const generateMatches = () => {
-        let activityCount = {};
-        activities.forEach(activity => {
-            activityCount[activity] = 0;
-        });
-        choices.forEach(choice => {
-            activityCount[choice] += 1;
-        });
-        return Object.keys(activityCount).filter(activity => {
-            return activityCount[activity] == 2;
-        });
-    };
+    useEffect(() => {
+        fetch(`http://${IP}:8080/user/${selectedUserId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ choices: choices })
+        })
+    }, [results])
+
+    // const generateMatches = () => {
+    //     let activityCount = {};
+    //     activities.forEach(activity => {
+    //         activityCount[activity] = 0;
+    //     });
+    //     choices.forEach(choice => {
+    //         activityCount[choice] += 1;
+    //     });
+    //     return Object.keys(activityCount).filter(activity => {
+    //         return activityCount[activity] == 2;
+    //     });
+    // };
 
     const nextCard = () => {
         if (user === 1) {
@@ -100,20 +97,28 @@ export default function Home() {
         }
     };
 
+    const confirmName = () => {
+      const selected = users.filter((user) => user.name === selectedName )[0]
+      console.log(selected)
+      setSelectedUserId(selected._id)
+    }
+
     return (
         <SafeAreaView>
             {/* <View> */}
 
-            {results ? (
-                <MatchResults choices={generateMatches()} />
+            {selectedUserId ? (
+                <View style={styles.container}>
+                <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
+                {/* <StatusBar style="auto" /> */}
+                </View>
             ) : (
                 <>
                     <View>
                         <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
-                    </View>
-                    <View style={styles.container}>
-                        <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-                        {/* <StatusBar style="auto" /> */}
+                        <TouchableOpacity onPress={confirmName}>
+                           <Text>Confirm</Text>
+                         </TouchableOpacity>
                     </View>
                 </>
             )}

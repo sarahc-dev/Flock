@@ -4,7 +4,9 @@ export const SIZES = {
 
 export const BACKGROUNDIMAGE = {
     backgroundColor: "#EEEEEE",
-    flex: 1
+    flex: 1,
+    position: 'relative'
+    
 }
 
 // Yellow: #FED049

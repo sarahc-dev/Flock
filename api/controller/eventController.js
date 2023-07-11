@@ -25,6 +25,7 @@ const EventController = {
   },
   Create: async (req, res) => {
     const { eventName, names, location  } = req.body
+    console.log(eventName)
     const client = new SerpApiClient(location)
     const clientAi = new OpenAiClient(location)
 

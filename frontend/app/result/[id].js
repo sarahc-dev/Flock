@@ -8,7 +8,7 @@ import NoMatches from "../../components/NoMatches";
 export default function Result(props) {
     const { id } = useLocalSearchParams();
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
-    const [data, setData] = useState({eventName: 'the best event' ,names: [{name: 'john', choices: ['go for a walk', 'eat pizza','base jumping']}, {name: 'jim', choices: ['eat pizza', 'base jumping']}, {name: 'john', choices: []}], activities: activities })
+    const [data, setData] = useState({eventName: 'the best event' ,names: [{name: 'john', choices: ['go for a walk', 'eat pizza','base jumping']}, {name: 'jim', choices: ['eat pizza', 'base jumping']}, {name: 'john', choices: ['eat pizza']}], activities: activities })
     const [isComplete, setIsComplete] = useState(false)
     // const { activities} = props
     

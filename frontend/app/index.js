@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, SafeAreaView, TouchableOpacity, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
 import ListItem from "../components/ListItem";
+import { BACKGROUNDIMAGE } from "../styles/styles";
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -71,9 +72,9 @@ export default function NewEvent() {
     // }, [nameList]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.image}>
            <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName} locationName={locationName} locationNameInput={locationNameInput}/>
-            <View>
+            <View >
                 <TouchableOpacity onPress={submitEvent}>
                     <Text>Generate Link</Text>
                 </TouchableOpacity>
@@ -92,3 +93,6 @@ export default function NewEvent() {
         </SafeAreaView>
     );
 }
+const styles = StyleSheet.create({
+  image: BACKGROUNDIMAGE
+})

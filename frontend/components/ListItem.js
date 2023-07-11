@@ -6,8 +6,9 @@ const ListItem =({activity})=> {
   return (
     <View style={styles.item}>
       <Feather name={'sun'} size = {50} color={'black'}/>
-      <Text>{activity}</Text>
+      <Text style={styles.text}>{activity}</Text>
     </View>
+  
     
   )
 }
@@ -25,18 +26,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     borderWidth: 5,
-    backgroundColor: 'indianred'
+    backgroundColor: 'royalblue'
   },
-  temp: {
-    color: 'white',
-    fontSize: 20
-  },
-  date: {
-    color: 'white',
-  fontSize: 15
-  },
-  dateTextWrapper: {
-    flexDirection: 'column'
+  text: {
+    fontSize: 25,
+    marginLeft: 7.5,
+    color: 'black'
   }
 })
 export default ListItem

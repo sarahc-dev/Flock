@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from 'expo-router';
-import { FlatList, SafeAreaView, Text, View } from "react-native";
+import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router"
 import { IP } from "@env"
 import ListItem from "../../components/ListItem";
+import NoMatches from "../../components/NoMatches";
 export default function Result(props) {
     const { id } = useLocalSearchParams();
     const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
-    const [data, setData] = useState({names: [{name: 'john', choices: ['asda']}, {name: 'jim', choices: ['asda']}], activities })
+    const [data, setData] = useState({eventName: 'the best event' ,names: [{name: 'john', choices: ['go for a walk', 'eat pizza','base jumping']}, {name: 'jim', choices: ['eat pizza', 'base jumping']}, {name: 'john', choices: []}], activities: activities })
     const [isComplete, setIsComplete] = useState(false)
     // const { activities} = props
     
@@ -27,42 +28,47 @@ export default function Result(props) {
     //         .then(data => setData(data))
     //     }
     // }, [id])
-
+  const userNumber = data.names.length
+  const allChoices = []
+  const generateMatches = () => {
+      
+    data.names.map(user => {
+    allChoices.push(user.choices)
+   })
+  console.log(allChoices)
+   let activityCount = {};
+   data.activities.forEach(activity => {
+       activityCount[activity] = 0;
+   });
+   allChoices.flat().forEach(choice => {
+       activityCount[choice] += 1;
+   });
+  //  console.log(activityCount)
+   return Object.keys(activityCount).filter(activity => {
+       return activityCount[activity] === userNumber;
+   });
+};
+    
+// console.log(generateMatches())
+const matches = generateMatches()
     useEffect(() => {
-        
-        console.log(data)
-        const filteredData = data.names.filter((user) => {
-           return user.choices.length === 0
-        })
-        console.log(filteredData);
-        (filteredData.length === 0) ? setIsComplete(true) : console.log('waiting') 
-          console.log(isComplete)
+        console.log(matches)
+        matches.length > 0 ? setIsComplete(true) : console.log('waiting');
     }, [data])
 
-       
-    if (!isComplete) {
+    
+    if (!matches.length>0) {
     return (
-      <SafeAreaView>
-           <Text>waiting</Text>
-          <Text>Dynamic result page </Text> 
-              <Text>{data.eventName}</Text>
-        
-
-        <View>
-            <Link href="/">Go Home</Link>
-        </View>
-        </SafeAreaView>
+      <NoMatches eventName={data.eventName}/>
     )
       }
 
     return (
   
         <SafeAreaView>
-           <Text>wait</Text>
-          <Text>Dynamic result page </Text> 
-              <Text>{data.eventName}</Text>
+          <Text style={[styles.item, styles.text]}>Results for {data.eventName}</Text> 
               <FlatList
-              data={data.activities}
+              data={matches}
               renderItem={({item}) => (
             <ListItem activity={item} />)}
         />
@@ -74,3 +80,20 @@ export default function Result(props) {
         </SafeAreaView>
     )
 }
+const styles = StyleSheet.create({
+  item:{
+  padding:20,
+  marginVertical: 8,
+  marginHorizontal: 16,
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  borderWidth: 5,
+  backgroundColor: 'royalblue'
+  },
+  text: {
+    fontSize: 25,
+    marginLeft: 7.5,
+    color: 'black'
+  }
+})

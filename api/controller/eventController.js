@@ -42,7 +42,7 @@ const EventController = {
         const activities = [...serpActivities.slice(0, 2), ...data]
       
         try {
-          const newEvent = await Event.create({ eventName, names, activities })
+          const newEvent = await Event.create({ eventName, names: users, activities })
           res.status(200).json(newEvent._id)
         } catch (error) {
           res.status(400).json({ error: error.message })

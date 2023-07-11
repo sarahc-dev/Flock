@@ -1,6 +1,6 @@
 const Event = require('../models/eventModel')
 const mongoose = require('mongoose')
-// const OpenAiClient = require('../clients/openAiClient')
+const OpenAiClient = require('../clients/openAiClient')
 const SerpApiClient = require('../clients/serpApiClient')
 
 const EventController = {
@@ -27,13 +27,12 @@ const EventController = {
     const { eventName, names, location  } = req.body
     const client = new SerpApiClient(location)
     const clientAi = new OpenAiClient(location)
-    let firstctivities = []
 
     await client.activitySearch(async (data) => {
-      activities = data.map(activity => activity.title)
+      const serpActivities = data.map(activity => activity.title)
       
-      // await clientAi.activitySearch(async (data) => {
-      //   activities.push(data)
+      await clientAi.activitySearch(async (data) => {
+        const activities = [...serpActivities, ...data]
       
         try {
           const newEvent = await Event.create({ eventName, names, activities })
@@ -41,7 +40,7 @@ const EventController = {
         } catch (error) {
           res.status(400).json({ error: error.message })
         }
-      // })
+      })
     })
 
   }

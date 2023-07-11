@@ -1,11 +1,13 @@
 const Event = require('../models/eventModel')
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
+const OpenAiClient = require('../clients/openAiClient')
+const SerpApiClient = require('../clients/serpApiClient')
 
 const EventController = {
   Index: async (req, res) => {
     const { id } = req.params
-    
+    // console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)){
       return res.status(404).json({error: 'Id param is invalid'})
     }
@@ -23,18 +25,31 @@ const EventController = {
     }
   },
   Create: async (req, res) => {
-    const { eventName, names } = req.body
+    const { eventName, names, location  } = req.body
 
-  try {
-    const users = names.map((name) => {
-      return new User({ name })
+    const users = names.map( async (name) => {
+      const user = await new User({ name });
+      return user;
     })
-    console.log(users)
-    const newEvent = await Event.create({ eventName, names: users })
-    res.status(200).json(newEvent._id)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
+
+    const client = new SerpApiClient(location)
+    const clientAi = new OpenAiClient(location)
+
+    await client.activitySearch(async (data) => {
+      const serpActivities = data.map(activity => activity.title)
+      
+      await clientAi.activitySearch(async (data) => {
+        const activities = [...serpActivities.slice(0, 2), ...data]
+      
+        try {
+          const newEvent = await Event.create({ eventName, names, activities })
+          res.status(200).json(newEvent._id)
+        } catch (error) {
+          res.status(400).json({ error: error.message })
+        }
+      })
+    })
+
   }
 }
 

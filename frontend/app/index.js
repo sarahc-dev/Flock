@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView} from "react-native";
+import { Image, View, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView} from "react-native";
 import { Stack, Link } from "expo-router";
 import CreateEvent from "../components/CreateEvent";
 import * as Linking from 'expo-linking';
@@ -71,6 +71,15 @@ export default function NewEvent() {
     //     console.log(nameList);
     // }, [nameList]);
 
+   function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 50, height: 50 }}
+      source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+    />
+  );
+}
+
     return (
 
         <SafeAreaView style={{ flex: 1}}>
@@ -93,6 +102,7 @@ export default function NewEvent() {
                 <Link href="/event-chooser">Choose Activities (next page)</Link>
                 <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
                 <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
+                <LogoTitle/>
             </View>
             
             

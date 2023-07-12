@@ -87,11 +87,11 @@ export default function NewEvent() {
             
             </ScrollView>
             <Image source={require('../assets/sheep-and-bird-cropped.png')} style={{  width: 250, height: 230, position: 'absolute', bottom: 0, right: 0 }} />
-         <View>
+         {/* <View>
                 <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
                 <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
                 
-            </View>
+            </View> */}
             
             
         </SafeAreaView>

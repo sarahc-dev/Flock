@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import FlashCardContainer from "../../components/FlashCardContainer";
 import { useEffect, useState } from "react";
 import MatchResults from "../../components/MatchResults";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownMenu from "../../components/DropdownMenu";
 import { IP } from "@env";
@@ -19,6 +19,7 @@ export default function Home() {
     const [activities, setActivities] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState("");
+    const [choicesMade, setChoicesMade] = useState(false)
 
 
     const { id } = useLocalSearchParams();
@@ -80,20 +81,10 @@ export default function Home() {
     // };
 
     const nextCard = () => {
-        if (user === 1) {
-            if (card === 4) {
-                setCard(0);
-                setUser(2);
-            } else {
-                setCard(card + 1);
-            }
+        if (card === activities.length - 1) {
+            setChoicesMade(true)
         } else {
-            if (card === 4) {
-                console.log("reveal results");
-                setResults(true);
-            } else {
-                setCard(card + 1);
-            }
+            setCard(card + 1)
         }
     };
 
@@ -102,29 +93,32 @@ export default function Home() {
       console.log(selected)
       setSelectedUserId(selected._id)
     }
-
-    return (
-        <SafeAreaView>
-            {/* <View> */}
-
-            {selectedUserId ? (
-                <View style={styles.container}>
-                <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-                {/* <StatusBar style="auto" /> */}
-                </View>
-            ) : (
-                <>
-                    <View>
-                        <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
-                        <TouchableOpacity onPress={confirmName}>
-                           <Text>Confirm</Text>
-                         </TouchableOpacity>
+    if (choicesMade) {
+        return <Redirect href={"/results-page"}/>
+    } else {
+        return (
+            <SafeAreaView>
+                {/* <View> */}
+    
+                {selectedUserId ? (
+                    <View style={styles.container}>
+                    <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
+                    {/* <StatusBar style="auto" /> */}
                     </View>
-                </>
-            )}
-            {/* </View> */}
-        </SafeAreaView>
-    );
+                ) : (
+                    <>
+                        <View>
+                            <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
+                            <TouchableOpacity onPress={confirmName}>
+                               <Text>Confirm</Text>
+                             </TouchableOpacity>
+                        </View>
+                    </>
+                )}
+                {/* </View> */}
+            </SafeAreaView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

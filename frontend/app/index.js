@@ -17,22 +17,6 @@ export default function NewEvent() {
     const [locationName, setLocationName] = useState("");
     const [generateButton, setGenerateButton] = useState("Generate Link");
 
-    
-        const storeData = async () => {
-            const value = {
-                "pastEvents": [{ id: 123, eventName: "Birthday"}],
-              }
-
-            try {
-              const jsonValue = JSON.stringify(value);
-              await AsyncStorage.setItem('past-events', jsonValue);
-            } catch (e) {
-              // saving error
-            }
-          };
-        storeData()
-    
-
     const nameInput = text => {
         setName(text);
     };
@@ -92,10 +76,10 @@ export default function NewEvent() {
                     <Text style={{ fontSize: 20, fontWeight: 600 }}>{generateButton}</Text>
                 </TouchableOpacity> : <><Text style={styles.link}>{`Your link is: ${link}`}</Text>
                 <TouchableOpacity onPress={copyToClipboard} style={styles.copyButton}>
-                    <Text style={{ fontSize: 16 }}>Click here to copy link</Text>
+                    <Text style={{ fontSize: 16 }}>Copy link to share</Text>
                 </TouchableOpacity>
                 <View style={styles.activitiesLink}>
-                <Link href={`/event/${id}`} style={{ fontSize: 16 }}>Go to your activities</Link>
+                <Link href={`/event/${id}`} style={{ fontSize: 16 }}>Choose activities</Link>
                 </View>
                 
                 </>} 

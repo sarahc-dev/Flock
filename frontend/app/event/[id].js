@@ -1,14 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView } from "react-native";
 import FlashCardContainer from "../../components/FlashCardContainer";
 import { useEffect, useState } from "react";
-import MatchResults from "../../components/MatchResults";
-import { Link, Redirect } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Redirect } from "expo-router";
 import DropdownMenu from "../../components/DropdownMenu";
 import { IP } from "@env";
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from "../../components/Header";
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -22,10 +20,8 @@ export default function Home() {
     const [eventName, setEventName] = useState("")
 
     const { id } = useLocalSearchParams();
-    console.log(id)
 
     useEffect(() => {
-      
      if (id) {
       fetch(`http://${IP}:8080/event/${id}`, {
         method: "GET",
@@ -55,8 +51,6 @@ export default function Home() {
         setChoices([...choices, choice]);
     };
 
-    console.log(choices);
-
     const storeData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('pastEvents');
@@ -67,7 +61,6 @@ export default function Home() {
             await AsyncStorage.setItem('pastEvents', stringifiedJson)
         } else {
             const data = JSON.stringify([{id: id, eventName: eventName}])
-            console.log(`data: ${data}`)
             await AsyncStorage.setItem('pastEvents', data)
           }
         } catch (e) {
@@ -75,14 +68,6 @@ export default function Home() {
           console.log('test error')
         }
       };
-
-    // const storeData = async () => {
-    //     try {
-    //       await AsyncStorage.setItem('my-user-id', selectedUserId);
-    //     } catch (e) {
-    //       // saving error
-    //     }
-    //   };
 
     const submitResults = async () => {
         await storeData();
@@ -111,35 +96,30 @@ export default function Home() {
 
     const confirmName = () => {
       const selected = users.filter((user) => user.name === selectedName )[0]
-      console.log(selected)
       setSelectedUserId(selected._id)
-      console.log(selectedUserId)
     }
-
 
     if (choicesMade) {
         return <Redirect href={`/result/${id}`}/>
     } else {
         return (
             <SafeAreaView>
-                {/* <View> */}
-    
+            <Header name={'Choose Activities'} />
+            <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
                     <View style={styles.container}>
                     <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
-                    {/* <StatusBar style="auto" /> */}
                     </View>
                 ) : (
                     <>
-                        <View>
+                        <View style={styles.container}>
                             <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
-                            <TouchableOpacity onPress={confirmName}>
-                               <Text>Confirm</Text>
+                            <TouchableOpacity onPress={confirmName} style={styles.button}>
+                               <Text style={{fontSize: 16}}>Confirm</Text>
                              </TouchableOpacity>
                         </View>
                     </>
                 )}
-                {/* </View> */}
             </SafeAreaView>
         );
     }
@@ -147,11 +127,21 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        // backgroundColor: "#fff",
+        padding: 16
     },
-    link: {
-        // marginBottom: "10%",
-        // marginLeft: "10%",
-    },
+    header: {
+      fontSize: 24, 
+      fontWeight: 600, 
+      marginBottom: 16,
+      padding: 16,
+      paddingBottom: 0
+  },
+  button: {
+    backgroundColor: '#68B984',
+    alignSelf: 'flex-start',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    marginTop: 16,
+  },
 });

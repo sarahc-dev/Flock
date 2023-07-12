@@ -3,7 +3,8 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 
-const eventRoutes =  require('./routes/eventRouter')
+const eventRoutes = require('./routes/eventRouter')
+const userRoutes = require('./routes/userRouter')
 
 const app = express();
 
@@ -11,11 +12,18 @@ const app = express();
 app.use(express.json())
 
 app.use(logger("dev"));
+// ^^^^^^^ => The below (Lines 16-20) is the same logic ad line 14 above.
+// flock.use((req, res, next) => {
+//   console.log(req.path, req.method)
+//   next()
+// })
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // route setup
 app.use('/event', eventRoutes)
+app.use('/user', userRoutes)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -31,31 +39,5 @@ app.use((err, req, res) => {
   // respond with details of the error
   res.status(err.status || 500).json({message: 'server error'})
 });
-
-
-
-
-
-
-// flock.use((req, res, next) => {
-//   console.log(req.path, req.method)
-//   next()
-// })
-
-
-
-// mongoose.connect(process.env.MONGO_DB_URI)
-//   .then(() => {
-//     flock.listen(process.env.PORT_NO, () => {
-//         console.log('Listening on port', process.env.PORT_NO)
-//       })
-//   })
-//   .catch((error) => {
-//     console.log(error)
-//   })
-
-
-
-
 
 module.exports = app;

@@ -24,7 +24,7 @@ export default function Layout() {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
-          } else if (route.name === 'past-results') {
+          } else if (route.name === 'past-events') {
             iconName = focused ? 'ios-list' : 'ios-list-outline';
           }
 
@@ -35,7 +35,7 @@ export default function Layout() {
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tabs.Screen name="index" options={{ tabBarLabel: "Create Event" }}/>
-      <Tabs.Screen name="past-results" options={{ tabBarLabel: "Past Results" }}/>
+      <Tabs.Screen name="past-events" options={{ tabBarLabel: "Past Events" }}/>
       <Tabs.Screen
         // Name of the route to hide.
         name="event/[id]"

@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownMenu from "../../components/DropdownMenu";
 import { IP } from "@env";
 import { useLocalSearchParams } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -18,6 +19,7 @@ export default function Home() {
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState("");
     const [choicesMade, setChoicesMade] = useState(false)
+    const [eventName, setEventName] = useState("")
 
     const { id } = useLocalSearchParams();
     console.log(id)
@@ -35,6 +37,7 @@ export default function Home() {
         .then(data => {
           setActivities(data.activities)
           setUsers(data.names)
+          setEventName(data.eventName)
 
           const updatedOptions = data.names.map(user => ({
             label: user.name,
@@ -54,29 +57,49 @@ export default function Home() {
 
     console.log(choices);
 
-    useEffect(() => {
-        console.log(selectedUserId)
-        fetch(`http://${IP}:8080/user/${selectedUserId}`, {
+    const storeData = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('pastEvents');
+          const parsedJson = JSON.parse(jsonValue)
+          if (Array.isArray(parsedJson)) {
+            parsedJson.push({id: id, eventName: eventName})
+            const stringifiedJson = JSON.stringify(parsedJson)
+            await AsyncStorage.setItem('pastEvents', stringifiedJson)
+        } else {
+            const data = JSON.stringify([{id: id, eventName: eventName}])
+            console.log(`data: ${data}`)
+            await AsyncStorage.setItem('pastEvents', data)
+          }
+        } catch (e) {
+          // error reading value
+          console.log('test error')
+        }
+      };
+
+    // const storeData = async () => {
+    //     try {
+    //       await AsyncStorage.setItem('my-user-id', selectedUserId);
+    //     } catch (e) {
+    //       // saving error
+    //     }
+    //   };
+
+    const submitResults = async () => {
+        await storeData();
+        await fetch(`http://${IP}:8080/user/${selectedUserId}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ choices: choices })
         })
-    }, [choicesMade])
+    }
 
-    // const generateMatches = () => {
-    //     let activityCount = {};
-    //     activities.forEach(activity => {
-    //         activityCount[activity] = 0;
-    //     });
-    //     choices.forEach(choice => {
-    //         activityCount[choice] += 1;
-    //     });
-    //     return Object.keys(activityCount).filter(activity => {
-    //         return activityCount[activity] == 2;
-    //     });
-    // };
+    useEffect(() => {
+        if(choicesMade) {
+            submitResults();
+        }
+    }, [choicesMade])
 
     const nextCard = () => {
         if (card === activities.length - 1) {

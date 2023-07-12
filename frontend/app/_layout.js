@@ -24,7 +24,7 @@ export default function Layout() {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
-          } else if (route.name === 'past-results') {
+          } else if (route.name === 'past-events') {
             iconName = focused ? 'ios-list' : 'ios-list-outline';
           }
 

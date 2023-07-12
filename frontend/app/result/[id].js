@@ -22,13 +22,13 @@ export default function Result(props) {
     // isComplete? Has each person got an array of choices?
     // either include no choices or a default option if no choices
 
-    // useEffect(() => {
-    //     if (id) {
-    //         fetch(`http://${IP}:8080/event/${id}`)
-    //         .then(response => response.json())
-    //         .then(data => setData(data))
-    //     }
-    // }, [id])
+    useEffect(() => {
+        if (id) {
+            fetch(`http://${IP}:8080/event/${id}`)
+            .then(response => response.json())
+            .then(data => setData(data))
+        }
+    }, [id])
   const userNumber = data.names.length
   const allChoices = []
   const generateMatches = () => {

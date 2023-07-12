@@ -29,8 +29,6 @@ export default function NewEvent() {
     const removeName = nameToRemove => {
         const filteredNames = nameList.filter(name => name !== nameToRemove);
         setNameList(filteredNames);
-        console.log("remove names called");
-        console.log(nameToRemove);
     };
 
     const eventNameInput = text => {
@@ -58,6 +56,7 @@ export default function NewEvent() {
                 setLink(Linking.createURL(`/event/${data}`))
             })
             .catch(error => {
+                setGenerateButton("Generate Link");
                 console.error(error);
             });
     };

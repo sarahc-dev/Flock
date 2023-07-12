@@ -111,11 +111,10 @@ export default function Home() {
 
     const confirmName = () => {
       const selected = users.filter((user) => user.name === selectedName )[0]
-      console.log(selected)
-      setSelectedUserId(selected._id)
-      console.log(selectedUserId)
+      if (selected) {
+        setSelectedUserId(selected._id)
+      }
     }
-
 
     if (choicesMade) {
         return <Redirect href={`/result/${id}`}/>

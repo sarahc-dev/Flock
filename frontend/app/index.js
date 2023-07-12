@@ -15,7 +15,23 @@ export default function NewEvent() {
     const [id, setId] = useState("");
     const [link, setLink] = useState("");
     const [locationName, setLocationName] = useState("");
-    const [generateButton, setGenerateButton] = useState("Generate Link")
+    const [generateButton, setGenerateButton] = useState("Generate Link");
+
+    
+        const storeData = async () => {
+            const value = {
+                "pastEvents": [{ id: 123, eventName: "Birthday"}],
+              }
+
+            try {
+              const jsonValue = JSON.stringify(value);
+              await AsyncStorage.setItem('past-events', jsonValue);
+            } catch (e) {
+              // saving error
+            }
+          };
+        storeData()
+    
 
     const nameInput = text => {
         setName(text);

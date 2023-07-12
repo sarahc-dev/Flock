@@ -10,7 +10,7 @@ export default function NewEvent() {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('pastEvents');
-      console.log(value)
+      console.log(`hello${value}`)
       if (value !== null) {
         // value previously stored
         const localData = JSON.parse(value)
@@ -18,6 +18,7 @@ export default function NewEvent() {
       }
     } catch (e) {
       // error reading value
+      console.log('wtf')
     }
   };
 
@@ -25,11 +26,12 @@ export default function NewEvent() {
     getData();
   }, [])
 
-  console.log(`data: ${data}`)
+  console.log(data)
+  // console.log(`data: ${data}`)
 
   return (
     <SafeAreaView>
-      {data && <Text>data[0].eventName</Text>}
+      {/* {data && <Text>{data[0].eventName}</Text>} */}
     </SafeAreaView>
   )
 }

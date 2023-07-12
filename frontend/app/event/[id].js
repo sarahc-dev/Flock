@@ -60,12 +60,11 @@ export default function Home() {
     const storeData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('pastEvents');
-          if (jsonValue !== null) {
-            const localData = JSON.parse(jsonValue).push({id: id, eventName: eventName})
-            console.log(localData)
-            const newData = JSON.stringify(localData)
-            console.log(`newData: ${newData}`)
-            await AsyncStorage.setItem('pastEvents', newData)
+          const parsedJson = JSON.parse(jsonValue)
+          if (Array.isArray(parsedJson)) {
+            parsedJson.push({id: id, eventName: eventName})
+            const stringifiedJson = JSON.stringify(parsedJson)
+            await AsyncStorage.setItem('pastEvents', stringifiedJson)
         } else {
             const data = JSON.stringify([{id: id, eventName: eventName}])
             console.log(`data: ${data}`)
@@ -73,6 +72,7 @@ export default function Home() {
           }
         } catch (e) {
           // error reading value
+          console.log('test error')
         }
       };
 
@@ -96,7 +96,9 @@ export default function Home() {
     }
 
     useEffect(() => {
-        submitResults();
+        if(choicesMade) {
+            submitResults();
+        }
     }, [choicesMade])
 
     const nextCard = () => {

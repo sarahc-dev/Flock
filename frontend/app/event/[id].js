@@ -95,7 +95,7 @@ export default function Home() {
 
 
     if (choicesMade) {
-        return <Redirect href={"/results-page"}/>
+        return <Redirect href={`/result/${id}`}/>
     } else {
         return (
             <SafeAreaView>

@@ -12,83 +12,85 @@ export default function Result(props) {
   const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
   const [data, setData] = useState({eventName: '', names: ["Tim"], activities: activities})
   const [isComplete, setIsComplete] = useState(false)
-    // const { activities} = props
-    
-    // {_id: udfuadfa, names: [userObject], activities: [], eventName: "something"}
-
-    // {name: "Sarah", choices: ["dnfsdf", "dfss"]}
-
-    // What if said no to all choices
-
-    // isComplete? Has each person got an array of choices?
-    // either include no choices or a default option if no choices
+  const [matches, setMatches] = useState([])
+  const [toggle, setToggle] = useState(false)
 
   useEffect( () => {
     if (id) {
       fetch(`http://${IP}:8080/event/${id}`)
       .then(response => response.json())
-      .then(data => setData(data))
+      .then(data => {
+        setData(data);
+        const m = generateMatches(data)
+        setMatches(m)
+        m.length > 0 && setIsComplete(true)
+      })
     }
-  }, [id])
+  }, [id, toggle])
 
-  const userNumber = data.names.length
-  const allChoices = []
-  const generateMatches = () => {
-      
+  const generateMatches = (data) => {
+    const userNumber = data.names.length
+    const allChoices = []
+
     data.names.map(user => {
-    allChoices.push(user.choices)
-   })
-   console.log(allChoices)
-   let activityCount = {};
-   data.activities.forEach(activity => {
-       activityCount[activity] = 0;
-   });
-   allChoices.flat().forEach(choice => {
-       activityCount[choice] += 1;
-   });
-  //  console.log(activityCount)
-   return Object.keys(activityCount).filter(activity => {
-       return activityCount[activity] === userNumber;
-   });
+      allChoices.push(user.choices)
+    })
+
+    let activityCount = {};
+    data.activities.forEach(activity => {
+      activityCount[activity] = 0;
+    });
+
+    allChoices.flat().forEach(choice => {
+      activityCount[choice] += 1;
+    });
+
+    return Object.keys(activityCount).filter(activity => {
+      return activityCount[activity] === userNumber;
+    })
   };
     
-// console.log(generateMatches())
-const matches = generateMatches()
+  // const checkMatches = async () => {
+  //   await fetch(`http://${IP}:8080/event/${id}`)
+  //   .then(response => response.json())
+  //   .then(data => setData(data))
+  //   generateMatches()
+  //   // matches.length > 0 && setIsComplete(true)
+  // }
 
-   const checkMatches = () =>{
-    generateMatches() > 0 ? setIsComplete(true):setIsComplete(false)
-   }
+  // useEffect(() => {
+  //   matches.length > 0 && setIsComplete(true)
+  // }, [matches])
     
-    
-    if (isComplete) {
+  if (isComplete) {
     return (
       <SafeAreaView>
-      <Header name={'Waiting'}/>
-      <NoMatches eventName={data.eventName}/>
-      <TouchableOpacity onPress={checkMatches} style={styles.copyButton}>
-        <Text style={{ fontSize: 16 }}>Click here to check results</Text>
-      </TouchableOpacity>
+        <Header name={'Results'}/>
+        <Text style={[styles.item, styles.text]}>Results for {data.eventName}</Text>
+
+        <FlatList
+          data={matches}
+          renderItem={({item}) => (
+            <ListItem activity={item} />
+            )}
+            />
+        
+        <View>
+          <Link href="/">Go Home</Link>
+        </View>
       </SafeAreaView>
     )
-      }
-
+  } else {
     return (
-  
-        <SafeAreaView>
-          <Header name={'Results'}/>
-          <Text style={[styles.item, styles.text]}>Results for {data.eventName}</Text> 
-              <FlatList
-              data={matches}
-              renderItem={({item}) => (
-            <ListItem activity={item} />)}
-        />
-        
-
-        <View>
-            <Link href="/">Go Home</Link>
-        </View>
-        </SafeAreaView>
+      <SafeAreaView>
+        <Header name={'Waiting'}/>
+        <NoMatches eventName={data.eventName} refreshRoute={`/result/${id}`}/>
+        <TouchableOpacity onPress={() => setToggle(!toggle)} style={styles.copyButton}>
+          <Text style={{ fontSize: 16 }}>Click here to refresh results</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     )
+  }
 }
 
 

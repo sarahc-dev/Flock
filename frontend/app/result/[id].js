@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from 'expo-router';
-import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
+import { FlatList, SafeAreaView, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router"
 import { IP } from "@env"
 import ListItem from "../../components/ListItem";
 import NoMatches from "../../components/NoMatches";
 import Header from "../../components/Header";
+
 export default function Result(props) {
-    const { id } = useLocalSearchParams();
-    const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
-    const [data, setData] = useState({eventName: 'the best event' ,names: [{name: 'john', choices: ['go for a walk', 'eat pizza','base jumping']}, {name: 'jim', choices: ['eat pizza', 'base jumping']}, {name: 'john', choices: ['eat pizza']}], activities: activities })
-    const [isComplete, setIsComplete] = useState(false)
+  const { id } = useLocalSearchParams();
+  const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
+  const [data, setData] = useState({eventName: '', names: ["Tim"], activities: activities})
+  const [isComplete, setIsComplete] = useState(false)
     // const { activities} = props
     
     // {_id: udfuadfa, names: [userObject], activities: [], eventName: "something"}
@@ -22,13 +23,14 @@ export default function Result(props) {
     // isComplete? Has each person got an array of choices?
     // either include no choices or a default option if no choices
 
-    useEffect(() => {
-        if (id) {
-            fetch(`http://${IP}:8080/event/${id}`)
-            .then(response => response.json())
-            .then(data => setData(data))
-        }
-    }, [id])
+  useEffect( () => {
+    if (id) {
+      fetch(`http://${IP}:8080/event/${id}`)
+      .then(response => response.json())
+      .then(data => setData(data))
+    }
+  }, [id])
+
   const userNumber = data.names.length
   const allChoices = []
   const generateMatches = () => {
@@ -36,7 +38,7 @@ export default function Result(props) {
     data.names.map(user => {
     allChoices.push(user.choices)
    })
-  console.log(allChoices)
+   console.log(allChoices)
    let activityCount = {};
    data.activities.forEach(activity => {
        activityCount[activity] = 0;
@@ -48,22 +50,24 @@ export default function Result(props) {
    return Object.keys(activityCount).filter(activity => {
        return activityCount[activity] === userNumber;
    });
-};
+  };
     
 // console.log(generateMatches())
 const matches = generateMatches()
-    useEffect(() => {
-      
-        console.log(matches)
-        matches.length > 0 ? setIsComplete(true) : console.log('waiting');
-    }, [data])
 
+   const checkMatches = () =>{
+    generateMatches() > 0 ? setIsComplete(true):setIsComplete(false)
+   }
     
-    if (!matches.length>0) {
+    
+    if (isComplete) {
     return (
       <SafeAreaView>
       <Header name={'Waiting'}/>
       <NoMatches eventName={data.eventName}/>
+      <TouchableOpacity onPress={checkMatches} style={styles.copyButton}>
+        <Text style={{ fontSize: 16 }}>Click here to check results</Text>
+      </TouchableOpacity>
       </SafeAreaView>
     )
       }
@@ -86,6 +90,8 @@ const matches = generateMatches()
         </SafeAreaView>
     )
 }
+
+
 const styles = StyleSheet.create({
   item:{
   padding:20,
@@ -101,5 +107,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginLeft: 7.5,
     color: 'black'
+  },
+  copyButton: {
+    fontSize: 16,
+    backgroundColor: '#FED049',
+    alignSelf: 'flex-start',
+    padding: 6,
+    borderRadius: 5,
+    marginTop: 8
   }
 })

@@ -7,6 +7,7 @@ import { IP } from "@env";
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from "../../components/Header";
+import Swiper from "react-native-deck-swiper";
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -108,7 +109,19 @@ export default function Home() {
             <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
                     <View style={styles.container}>
-                    <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} />
+                    {/*  */}
+ {/* Swipable deck */}
+ 
+                    <Swiper cards={activities} 
+                    stackSize={5} 
+                    cardIndex={0} 
+                    verticalSwipe={false}
+                    renderCard={card => (
+                        <View style={styles.card}><Text style={styles.cardText}>{card}</Text></View>
+                    )} />
+                    
+                    
+                    {/* <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} /> */}
                     </View>
                 ) : (
                     <>

@@ -50,12 +50,6 @@ export default function Layout() {
           href: null,
         }}
       />
-      <Tabs.Screen
-        name="event-chooser"
-        options={{
-          href: null,
-        }}
-      />
     </Tabs>
    
   );

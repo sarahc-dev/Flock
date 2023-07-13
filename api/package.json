@@ -1,12 +1,11 @@
 {
-  "name": "acebook",
+  "name": "flock",
   "version": "0.0.0",
-  "description": "Template for the AceBook project",
+  "description": "Flock app",
   "license": "CC BY-NC-SA",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "start:test": "MONGODB_URL='mongodb://0.0.0.0/acebook_test' npm start",
     "test": "jest"
   },
   "engines": {

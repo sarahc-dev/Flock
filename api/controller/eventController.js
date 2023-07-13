@@ -35,13 +35,15 @@ const EventController = {
     const clientAi = new OpenAiClient(location)
 
     await client.activitySearch(async (data) => {
-      const serpActivities = data.map(activity => activity.title)
+      const serpActivities = data.map(activity => {
+        return `Go to ${activity.title} at ${activity.venue.name}`
+      })
       
       await clientAi.activitySearch(async (data) => {
         const activities = [...serpActivities.slice(0, 2), ...data]
-      
+        const shuffledActivies = activities.sort(() => Math.random() - 0.5)
         try {
-          const newEvent = await Event.create({ eventName: eventName, names: users, activities: activities })
+          const newEvent = await Event.create({ eventName: eventName, names: users, activities: shuffledActivies })
           res.status(200).json(newEvent._id)
         } catch (error) {
           res.status(400).json({ error: error.message })

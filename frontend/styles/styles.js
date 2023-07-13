@@ -10,7 +10,8 @@ export const BACKGROUNDIMAGE = {
 }
 
 // Yellow: #FED049
-// Light Green: #CFFDE1
+
 // Green: #68B984
 // Dark Green: #3D5656
 // Reddy: #f4511e
+// sheep white: #FFF9E7

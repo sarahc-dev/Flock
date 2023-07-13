@@ -1,4 +1,5 @@
-import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView, Image } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from "react";
 import { Redirect } from "expo-router";
 import DropdownMenu from "../../components/DropdownMenu";
@@ -99,7 +100,7 @@ export default function Home() {
         return <Redirect href={`/result/${id}`}/>
     } else {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
             <Header name={'Choose Activities'} />
             <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
@@ -116,19 +117,19 @@ export default function Home() {
                     onSwipedRight={(cardIndex) => addChoice(activities[cardIndex])}
                     overlayLabels={{
                       left: {
-                        title: "Nope",
+                        title: "Nah..",
                         style: {
                           label: {
                             textAlign: "right",
-                            color: "red"
+                            color: "#f4511eCC"
                           }
                         }
                       },
                       right: {
-                        title: "Yes",
+                        title: "Yeh!",
                         style: {
                           label: {
-                            color: "green"
+                            color: "#3D5656AA"
                           }
                         }
                       }
@@ -136,22 +137,26 @@ export default function Home() {
                     renderCard={card => (
                         <View style={styles.card}>
                           <Text style={styles.cardText}>{card}</Text>
+                          <View style={{ flexDirection: "row", alignItems: "center"}}>
+    <MaterialCommunityIcons name="sheep" size={24} color="#FFF9E7" style={{marginTop:16}}/>
+    </View>
                         </View>
                     )} />
                     
                     </View>
                     <View style={{paddingHorizontal: 16, paddingBottom: '15%', position: 'absolute', bottom: 0, width: '100%', flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 56}}>
-                      <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{backgroundColor: "#f4511e", padding: 16, borderRadius: 50}}>
-                      <Entypo name="cross" size={24} color="black" />
+                      <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{backgroundColor: "#f4511e55", padding: 16, borderRadius: 50}}>
+                      <Entypo name="cross" size={24} color="#f4511e" />
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{backgroundColor: "#68B984", padding: 16, borderRadius: 50}}>
-                      <Entypo name="check" size={24} color="black" />
+                      <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{backgroundColor: "#68B98455", padding: 16, borderRadius: 50}}>
+                      <Entypo name="check" size={24} color="#68B984" />
                       </TouchableOpacity>
                     </View>
                     </View>
                 ) : (
                     <>
-                        <View style={styles.container}>
+                        <View style={[styles.container, {paddingBottom: 48, paddingHorizontal: 16, paddingTop: 16, position: "relative"}]}>
+                            <Image source={require('../../assets/bird.png')} style={{ width: 180, height: 150, marginLeft: 'auto', position: "absolute", top: -136, right: 0 }} />
                             <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
                             <TouchableOpacity onPress={confirmName} style={styles.button}>
                                <Text style={{fontSize: 16}}>Confirm</Text>
@@ -166,7 +171,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
+        padding: 0,
     },
     header: {
       fontSize: 24, 
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
       // marginBottom: 16,
       paddingHorizontal: 16,
       paddingTop: 16,
-     
+     top: 0
   },
   button: {
     backgroundColor: '#68B984',
@@ -185,7 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
     card: {
-      backgroundColor: "#FED049",
+      backgroundColor: "#68B984",
       borderRadius: "15px",
       height: "55%",
       padding: 16,
@@ -203,7 +208,9 @@ const styles = StyleSheet.create({
   },
   cardText: {
       fontSize: 30,
-      fontWeight: "600"
+      fontWeight: "600",
+      color: "#FFF9E7",
+      textAlign: 'center'
   },
 });
 

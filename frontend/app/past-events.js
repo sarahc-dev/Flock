@@ -28,8 +28,8 @@ export default function PastEvents() {
         <View style={{ padding: SIZES.medium }}>
           <Text style={styles.header}>Past Events</Text>
           {pastEvents && <FlatList data={pastEvents} renderItem={({item}) => (
-            <View style={{ backgroundColor: '#68B984', padding: 16, borderRadius: 5, marginBottom: 16 }}>
-              <Link href={`/result/${item.id}`}>
+            <View style={{ backgroundColor: '#FED049', padding: 16, borderRadius: 5, marginBottom: 16, marginHorizontal: 16 }}>
+              <Link href={`/result/${item.id}`} style={{fontSize: 24}}>
                 {item.eventName}
               </Link>
             </View>
@@ -42,7 +42,8 @@ export default function PastEvents() {
 
   const styles = StyleSheet.create({
     container: {
-      padding: 16
+      padding: 16,
+      marginBottom: 60
     },
     header: {
       fontSize: 24, 

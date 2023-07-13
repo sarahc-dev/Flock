@@ -1,23 +1,12 @@
+import { LogBox } from 'react-native';
 import { Tabs } from 'expo-router/tabs';
 import { Ionicons } from '@expo/vector-icons'; 
 
+
 export default function Layout() {
-  const linking = {
-    prefixes: ['flock']
-}
+  LogBox.ignoreAllLogs();
+
   return (
-    // <Stack title={''}
-    //   screenOptions={{
-    //     headerStyle: {
-    //       backgroundColor: '#f4511e',
-    //     },
-    //     headerTintColor: '#fff',
-    //     headerTitleStyle: {
-    //       fontWeight: 'bold',
-    //     },
-    //   }}
-    // >
-    // <Slot />
     <>
       <Tabs screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -38,7 +27,7 @@ export default function Layout() {
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tabs.Screen name="index" options={{ tabBarLabel: "Create Event", unmountOnBlur: true }}/>
-      <Tabs.Screen name="past-events" options={{ tabBarLabel: "Past Events" }}/>
+      <Tabs.Screen name="past-events" options={{ tabBarLabel: "Past Events", unmountOnBlur: true }}/>
       <Tabs.Screen
         // Name of the route to hide.
         name="event/[id]"

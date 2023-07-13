@@ -70,33 +70,26 @@ export default function NewEvent() {
 
     return (
         <SafeAreaView style={styles.image}>
-            <Header name={'Flock'}/>
+            <Header />
         <ScrollView style={{padding: SIZES.medium}}>
 
            <CreateEvent name={name} nameInput={nameInput} nameList={nameList} eventName={eventName} removeName={removeName} eventNameInput={eventNameInput} addName={addName} locationName={locationName} locationNameInput={locationNameInput}/>
             <View >
                 {!id ? <TouchableOpacity onPress={submitEvent} style={styles.button}>
                     <Text style={{ fontSize: 20, fontWeight: 600 }}>{generateButton}</Text>
-                </TouchableOpacity> : <><Text style={styles.link}>{`Your link is: ${link}`}</Text>
+                </TouchableOpacity> : <><Text style={{ fontSize: 24, fontWeight: 600, marginTop: 8 }}>Share the link with your friends!</Text>
                 <TouchableOpacity onPress={copyToClipboard} style={styles.copyButton}>
-                    <Text style={{ fontSize: 16 }}>Copy link to share</Text>
+                    <Text style={{ fontSize: 16, fontWeight: 600 }}>Copy link</Text>
                 </TouchableOpacity>
                 <View style={styles.activitiesLink}>
-                <Link href={`/event/${id}`} style={{ fontSize: 16 }}>Choose activities</Link>
+                <Link href={`/event/${id}`} style={{ fontSize: 20, fontWeight: 600 }}>Choose activities</Link>
                 </View>
                 
                 </>} 
             </View>
             
             </ScrollView>
-            <Image source={require('../assets/sheep-and-bird-cropped.png')} style={{  width: 250, height: 230, position: 'absolute', bottom: 0, right: 0 }} />
-         {/* <View>
-                <Link href={`/event/${id}`}>Test - Go to Link from within App</Link>
-                <Link href={`/result/${id}`}>Test - Go to Link from within App</Link>
-                
-            </View> */}
-            
-            
+            <Image source={require('../assets/sheep-and-bird-cropped.png')} style={{  width: '55%', height: '30%', position: 'absolute', bottom: 0, right: 0 }} />
         </SafeAreaView>
     );
 }
@@ -124,9 +117,9 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   activitiesLink: {
-    backgroundColor: '#f4511e',
+    backgroundColor: '#68B984',
     alignSelf: 'flex-start',
-    padding: 6,
+    padding: 8,
     borderRadius: 5,
     marginTop: 16
   }

@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   activitiesLink: {
-    backgroundColor: '#f4511e',
+    backgroundColor: '#68B984',
     alignSelf: 'flex-start',
     padding: 8,
     borderRadius: 5,

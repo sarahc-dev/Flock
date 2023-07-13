@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     nameTag: {
-        backgroundColor: '#68B984',
+        backgroundColor: '#f4511eAA',
         padding: 6,
         borderRadius: 5,
         alignSelf: 'flex-start',

@@ -7,6 +7,7 @@ import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
 import { SIZES, BACKGROUNDIMAGE } from "../styles/styles";
 import Header from "../components/Header";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -16,6 +17,8 @@ export default function NewEvent() {
     const [link, setLink] = useState("");
     const [locationName, setLocationName] = useState("");
     const [generateButton, setGenerateButton] = useState("Generate Link");
+
+    // AsyncStorage.clear();
 
     const nameInput = text => {
         setName(text);

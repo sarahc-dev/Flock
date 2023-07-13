@@ -1,8 +1,10 @@
-import { Stack, Slot } from 'expo-router';
 import { Tabs } from 'expo-router/tabs';
 import { Ionicons } from '@expo/vector-icons'; 
 
 export default function Layout() {
+  const linking = {
+    prefixes: ['flock']
+}
   return (
     // <Stack title={''}
     //   screenOptions={{
@@ -16,6 +18,7 @@ export default function Layout() {
     //   }}
     // >
     // <Slot />
+    <>
       <Tabs screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -51,6 +54,6 @@ export default function Layout() {
         }}
       />
     </Tabs>
-   
+    </>
   );
 }

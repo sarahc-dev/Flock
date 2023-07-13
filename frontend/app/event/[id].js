@@ -137,15 +137,13 @@ export default function Home() {
                         </View>
                     )} />
                     
-                    
-                    {/* <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} /> */}
                     </View>
                     <View style={{paddingHorizontal: 16, paddingBottom: '15%', position: 'absolute', bottom: 0, width: '100%', flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 56}}>
-                      <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{backgroundColor: "#68B984", padding: 16, borderRadius: 50}}>
-                      <Entypo name="check" size={24} color="black" />
-                      </TouchableOpacity>
                       <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{backgroundColor: "#f4511e", padding: 16, borderRadius: 50}}>
                       <Entypo name="cross" size={24} color="black" />
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{backgroundColor: "#68B984", padding: 16, borderRadius: 50}}>
+                      <Entypo name="check" size={24} color="black" />
                       </TouchableOpacity>
                     </View>
                     </View>

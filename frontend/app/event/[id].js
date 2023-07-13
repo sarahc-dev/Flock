@@ -90,7 +90,9 @@ export default function Home() {
 
     const confirmName = () => {
       const selected = users.filter((user) => user.name === selectedName )[0]
-      setSelectedUserId(selected._id)
+      if (selected) {
+        setSelectedUserId(selected._id)
+      }
     }
 
     if (choicesMade) {

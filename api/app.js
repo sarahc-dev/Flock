@@ -12,12 +12,6 @@ const app = express();
 app.use(express.json())
 
 app.use(logger("dev"));
-// ^^^^^^^ => The below (Lines 16-20) is the same logic ad line 14 above.
-// flock.use((req, res, next) => {
-//   console.log(req.path, req.method)
-//   next()
-// })
-
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 

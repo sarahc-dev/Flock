@@ -4,19 +4,19 @@ import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router"
 
 
-export default function NoMatches({eventName}) {
-   return (
-      <SafeAreaView>
-           <Text style={[styles.item, styles.text]}>waiting for Matches</Text>
-          <Text style={[styles.item, styles.text]}>Maybe just stay home </Text> 
-              <Text style={[styles.item, styles.text]}> no need to do {eventName}</Text>
-        
+export default function NoMatches({eventName, refreshRoute}) {
+  return (
+    <SafeAreaView>
+      <Text style={[styles.item, styles.text]}>waiting for Matches</Text>
+      <Text style={[styles.item, styles.text]}>Maybe just stay home </Text> 
+      <Text style={[styles.item, styles.text]}> no need to do {eventName}</Text>
+      
 
-              <Link href="/">
-            <Text style={[styles.item, styles.text]}>Go Home</Text>
+      <Link href="/">
+        <Text style={[styles.item, styles.text]}>Go Home</Text>
       </Link>
-        </SafeAreaView>
-    )
+    </SafeAreaView>
+  )
 }
 const styles = StyleSheet.create({
   item:{

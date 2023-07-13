@@ -7,6 +7,7 @@ import * as Clipboard from 'expo-clipboard';
 import { IP } from "@env";
 import { SIZES, BACKGROUNDIMAGE } from "../styles/styles";
 import Header from "../components/Header";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function NewEvent() {
     const [name, setName] = useState("");
@@ -15,7 +16,9 @@ export default function NewEvent() {
     const [id, setId] = useState("");
     const [link, setLink] = useState("");
     const [locationName, setLocationName] = useState("");
-    const [generateButton, setGenerateButton] = useState("Generate Link")
+    const [generateButton, setGenerateButton] = useState("Generate Link");
+
+    // AsyncStorage.clear();
 
     const nameInput = text => {
         setName(text);
@@ -76,10 +79,10 @@ export default function NewEvent() {
                     <Text style={{ fontSize: 20, fontWeight: 600 }}>{generateButton}</Text>
                 </TouchableOpacity> : <><Text style={styles.link}>{`Your link is: ${link}`}</Text>
                 <TouchableOpacity onPress={copyToClipboard} style={styles.copyButton}>
-                    <Text style={{ fontSize: 16 }}>Click here to copy link</Text>
+                    <Text style={{ fontSize: 16 }}>Copy link to share</Text>
                 </TouchableOpacity>
                 <View style={styles.activitiesLink}>
-                <Link href={`/event/${id}`} style={{ fontSize: 16 }}>Go to your activities</Link>
+                <Link href={`/event/${id}`} style={{ fontSize: 16 }}>Choose activities</Link>
                 </View>
                 
                 </>} 

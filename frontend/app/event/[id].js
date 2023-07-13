@@ -1,6 +1,5 @@
 import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView } from "react-native";
-import FlashCardContainer from "../../components/FlashCardContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Redirect } from "expo-router";
 import DropdownMenu from "../../components/DropdownMenu";
 import { IP } from "@env";
@@ -19,6 +18,8 @@ export default function Home() {
     const [selectedUserId, setSelectedUserId] = useState("");
     const [choicesMade, setChoicesMade] = useState(false)
     const [eventName, setEventName] = useState("")
+
+    const swipeRef = useRef(null)
 
     const { id } = useLocalSearchParams();
 
@@ -87,14 +88,6 @@ export default function Home() {
         }
     }, [choicesMade])
 
-    const nextCard = () => {
-        if (card === activities.length - 1) {
-            setChoicesMade(true)
-        } else {
-            setCard(card + 1)
-        }
-    };
-
     const confirmName = () => {
       const selected = users.filter((user) => user.name === selectedName )[0]
       setSelectedUserId(selected._id)
@@ -108,16 +101,39 @@ export default function Home() {
             <Header name={'Choose Activities'} />
             <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
-                    <View style={styles.container}>
-                    {/*  */}
- {/* Swipable deck */}
- 
-                    <Swiper cards={activities} 
+                    <View>
+                    <Swiper 
+                    ref={swipeRef}
+                    cards={activities} 
                     stackSize={5} 
                     cardIndex={0} 
+                    containerStyle={{ backgroundColor: 'transparent'}}
                     verticalSwipe={false}
+                    onSwipedAll={() => setChoicesMade(true)}
+                    // onSwipedRight={() => addChoice(how to get card)}
+                    overlayLabels={{
+                      left: {
+                        title: "Nope",
+                        style: {
+                          label: {
+                            textAlign: "right",
+                            color: "red"
+                          }
+                        }
+                      },
+                      right: {
+                        title: "Match",
+                        style: {
+                          label: {
+                            color: "green"
+                          }
+                        }
+                      }
+                    }}
                     renderCard={card => (
-                        <View style={styles.card}><Text style={styles.cardText}>{card}</Text></View>
+                        <View style={styles.card}>
+                          <Text style={styles.cardText}>{card}</Text>
+                        </View>
                     )} />
                     
                     
@@ -140,14 +156,15 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16
+        padding: 16,
     },
     header: {
       fontSize: 24, 
       fontWeight: 600, 
-      marginBottom: 16,
-      padding: 16,
-      paddingBottom: 0
+      // marginBottom: 16,
+      paddingHorizontal: 16,
+      paddingTop: 16,
+     
   },
   button: {
     backgroundColor: '#68B984',
@@ -157,4 +174,47 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 16,
   },
+    card: {
+      backgroundColor: "orange",
+      borderRadius: "15px",
+      height: "60%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      shadowColor: "#000",
+    shadowOffset: {
+        widty: 0,
+        height: 1
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2
+  },
+  cardText: {
+      fontSize: 30,
+      fontWeight: "600"
+  },
+  cardShadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+        widty: 0,
+        height: 1
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2
+}
 });
+
+// const styles = StyleSheet.create({
+//   container: {
+//       // flex: 1,
+//       // backgroundColor: "#fff",
+//   },
+//   link: {
+//       // marginBottom: "10%",
+//       // marginLeft: "10%",
+//   },
+
+  
+// });

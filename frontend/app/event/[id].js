@@ -7,6 +7,7 @@ import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from "../../components/Header";
 import Swiper from "react-native-deck-swiper";
+import { Entypo } from '@expo/vector-icons';
 
 export default function Home() {
     const [card, setCard] = useState(0);
@@ -97,10 +98,11 @@ export default function Home() {
         return <Redirect href={`/result/${id}`}/>
     } else {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={{flex: 1}}>
             <Header name={'Choose Activities'} />
             <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
+                  <View style={{position: 'relative', flex: 1}}>
                     <View>
                     <Swiper 
                     ref={swipeRef}
@@ -110,7 +112,7 @@ export default function Home() {
                     containerStyle={{ backgroundColor: 'transparent'}}
                     verticalSwipe={false}
                     onSwipedAll={() => setChoicesMade(true)}
-                    // onSwipedRight={() => addChoice(how to get card)}
+                    onSwipedRight={(cardIndex) => addChoice(activities[cardIndex])}
                     overlayLabels={{
                       left: {
                         title: "Nope",
@@ -122,7 +124,7 @@ export default function Home() {
                         }
                       },
                       right: {
-                        title: "Match",
+                        title: "Yes",
                         style: {
                           label: {
                             color: "green"
@@ -138,6 +140,15 @@ export default function Home() {
                     
                     
                     {/* <FlashCardContainer card={card} nextCard={nextCard} activities={activities} addChoice={addChoice} /> */}
+                    </View>
+                    <View style={{paddingHorizontal: 16, paddingBottom: '15%', position: 'absolute', bottom: 0, width: '100%', flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 56}}>
+                      <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{backgroundColor: "#68B984", padding: 16, borderRadius: 50}}>
+                      <Entypo name="check" size={24} color="black" />
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{backgroundColor: "#f4511e", padding: 16, borderRadius: 50}}>
+                      <Entypo name="cross" size={24} color="black" />
+                      </TouchableOpacity>
+                    </View>
                     </View>
                 ) : (
                     <>
@@ -175,9 +186,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
     card: {
-      backgroundColor: "orange",
+      backgroundColor: "#FED049",
       borderRadius: "15px",
-      height: "60%",
+      height: "55%",
+      padding: 16,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -194,27 +206,5 @@ const styles = StyleSheet.create({
       fontSize: 30,
       fontWeight: "600"
   },
-  cardShadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-        widty: 0,
-        height: 1
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2
-}
 });
 
-// const styles = StyleSheet.create({
-//   container: {
-//       // flex: 1,
-//       // backgroundColor: "#fff",
-//   },
-//   link: {
-//       // marginBottom: "10%",
-//       // marginLeft: "10%",
-//   },
-
-  
-// });

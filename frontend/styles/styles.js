@@ -14,3 +14,4 @@ export const BACKGROUNDIMAGE = {
 // Green: #68B984
 // Dark Green: #3D5656
 // Reddy: #f4511e
+// sheep white: #FFF9E7

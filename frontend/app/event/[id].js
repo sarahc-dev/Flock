@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text, SafeAreaView, Image } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import { Redirect } from "expo-router";
 import DropdownMenu from "../../components/DropdownMenu";
@@ -99,7 +99,7 @@ export default function Home() {
         return <Redirect href={`/result/${id}`}/>
     } else {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
             <Header name={'Choose Activities'} />
             <Text style={styles.header}>{eventName}</Text>
                 {selectedUserId ? (
@@ -151,7 +151,8 @@ export default function Home() {
                     </View>
                 ) : (
                     <>
-                        <View style={styles.container}>
+                        <View style={[styles.container, {paddingBottom: 48, position: "relative"}]}>
+                            <Image source={require('../../assets/bird.png')} style={{ width: 180, height: 150, marginLeft: 'auto', position: "absolute", top: -136, right: 0 }} />
                             <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
                             <TouchableOpacity onPress={confirmName} style={styles.button}>
                                <Text style={{fontSize: 16}}>Confirm</Text>

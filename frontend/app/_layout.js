@@ -22,8 +22,8 @@ export default function Layout() {
 
           if (route.name === 'index') {
             iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
+              ? 'ios-albums-sharp'
+              : 'ios-albums-outline';
           } else if (route.name === 'past-events') {
             iconName = focused ? 'ios-list' : 'ios-list-outline';
           }

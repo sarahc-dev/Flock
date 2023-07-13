@@ -10,7 +10,6 @@ import Swiper from "react-native-deck-swiper";
 import { Entypo } from '@expo/vector-icons';
 
 export default function Home() {
-    const [card, setCard] = useState(0);
     const [selectedName, setSelectedName] = useState("");
     const [dropdownOptions, setDropDownOptions] = useState([])
     const [choices, setChoices] = useState([]);

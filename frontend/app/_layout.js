@@ -27,7 +27,7 @@ export default function Layout() {
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tabs.Screen name="index" options={{ tabBarLabel: "Create Event", unmountOnBlur: true }}/>
-      <Tabs.Screen name="past-events" options={{ tabBarLabel: "Past Events" }}/>
+      <Tabs.Screen name="past-events" options={{ tabBarLabel: "Past Events", unmountOnBlur: true }}/>
       <Tabs.Screen
         // Name of the route to hide.
         name="event/[id]"

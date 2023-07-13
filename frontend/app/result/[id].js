@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from 'expo-router';
-import { FlatList, SafeAreaView, Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Link } from "expo-router"
+import { FlatList, SafeAreaView, Text, View, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import { IP } from "@env"
 import ListItem from "../../components/ListItem";
 import NoMatches from "../../components/NoMatches";
 import Header from "../../components/Header";
 
-export default function Result(props) {
+export default function Result() {
   const { id } = useLocalSearchParams();
   const activities = ["go for a walk", "eat pizza", "dance party", "have a conversation", "base jumping"];
   const [data, setData] = useState({eventName: '', names: ["Tim"], activities: activities})
@@ -50,23 +49,12 @@ export default function Result(props) {
     })
   };
     
-  // const checkMatches = async () => {
-  //   await fetch(`http://${IP}:8080/event/${id}`)
-  //   .then(response => response.json())
-  //   .then(data => setData(data))
-  //   generateMatches()
-  //   // matches.length > 0 && setIsComplete(true)
-  // }
-
-  // useEffect(() => {
-  //   matches.length > 0 && setIsComplete(true)
-  // }, [matches])
-    
   if (isComplete) {
     return (
       <SafeAreaView>
-        <Header name={'Results'}/>
-        <Text style={[styles.item, styles.text]}>Results for {data.eventName}</Text>
+        <Header />
+        <View style={{padding: 16}}>
+        <Text style={{fontSize: 24, fontWeight: 600, marginBottom: 16}}>Results for {data.eventName}</Text>
 
         <FlatList
           data={matches}
@@ -74,20 +62,22 @@ export default function Result(props) {
             <ListItem activity={item} />
             )}
             />
-        
-        <View>
-          <Link href="/">Go Home</Link>
         </View>
       </SafeAreaView>
     )
   } else {
     return (
-      <SafeAreaView>
-        <Header name={'Waiting'}/>
+      <SafeAreaView style={{flex: 1}}>
+        <Header />
+        
+        <View style={{padding: 16}}>
         <NoMatches eventName={data.eventName} refreshRoute={`/result/${id}`}/>
+      
         <TouchableOpacity onPress={() => setToggle(!toggle)} style={styles.copyButton}>
           <Text style={{ fontSize: 16 }}>Click here to refresh results</Text>
         </TouchableOpacity>
+        </View>
+        <ImageBackground source={require('../../assets/sheep-and-bird-large.png')} style={{ width: 330, height: 425, marginTop: 'auto', marginLeft: 'auto', paddingRight: 16}}/>
       </SafeAreaView>
     )
   }
@@ -103,7 +93,7 @@ const styles = StyleSheet.create({
   justifyContent: 'space-around',
   alignItems: 'center',
   borderWidth: 5,
-  backgroundColor: 'royalblue'
+  backgroundColor: '#68B984'
   },
   text: {
     fontSize: 25,

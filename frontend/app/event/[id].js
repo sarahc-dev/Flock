@@ -155,7 +155,7 @@ export default function Home() {
                     </View>
                 ) : (
                     <>
-                        <View style={[styles.container, {paddingBottom: 48, position: "relative"}]}>
+                        <View style={[styles.container, {paddingBottom: 48, paddingHorizontal: 16, paddingTop: 16, position: "relative"}]}>
                             <Image source={require('../../assets/bird.png')} style={{ width: 180, height: 150, marginLeft: 'auto', position: "absolute", top: -136, right: 0 }} />
                             <DropdownMenu selectedName={selectedName} setSelectedName={setSelectedName} dropdownOptions={dropdownOptions} />
                             <TouchableOpacity onPress={confirmName} style={styles.button}>

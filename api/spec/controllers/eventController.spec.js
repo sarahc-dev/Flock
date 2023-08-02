@@ -8,8 +8,9 @@ describe("/event", () => {
     await Event.deleteMany({});
   });
 
+  // These tests are using the real API calls. Update to use dependency injection.
   describe("POST, returns the correct status code when creating an event", () => {
-    test("the response code is 200", async () => {
+    xtest("the response code is 200", async () => {
       let response = await request(app)
         .post("/event")
         .send({
@@ -20,7 +21,7 @@ describe("/event", () => {
       expect(response.statusCode).toBe(200)
     })
 
-    test("the correct event is created", async () => {
+    xtest("the correct event is created", async () => {
       await request(app)
         .post("/event")
         .send({
@@ -30,6 +31,7 @@ describe("/event", () => {
         })
       let event = await Event.find()
       let newEvent = event[event.length - 1]
+      console.log(newEvent)
       expect(newEvent.eventName).toEqual("event")
     })
   })

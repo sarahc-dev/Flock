@@ -54,17 +54,8 @@ Expo will generate a QR that can be used to open the app on your phone. To do th
 
 ## Demonstration
 
-We developed Flock as our team's final project for [Makers Academy](https://makers.tech/). To see the app in action, check out our presentation at Makers demo day [here](https://www.youtube.com/watch?v=poiWhBTU_ys&t=285s). In the video, you can also hear us talk about our strategy and development process if you want to know more about the app.
-
-## Approach
-
-## Diagrams
-![Account Diagram](./diagrams/MVP.png)
+We developed Flock as our team's final project for [Makers Academy](https://makers.tech/). To see the app in action, check out our presentation at Makers demo day [here](https://www.youtube.com/watch?v=poiWhBTU_ys&t=285s). In the video, you can also hear us talk about our strategy and development process.
 
 ## Team
 
-- [Marco Belahouane](https://github.com/mkb93)
-- [Sarah Clements](https://github.com/sarahc-dev)
-- [Matt Hammond](https://github.com/MattHammond94)
-- [Evan Thomas](https://github.com/ev-th)
-- [Verity Wong](https://github.com/veritywong)
+👩‍🔧🧑‍🔧👨‍🔧 **[Marco Belahouane](https://github.com/mkb93), [Sarah Clements](https://github.com/sarahc-dev), [Matt Hammond](https://github.com/MattHammond94), [Evan Thomas](https://github.com/ev-th), [Verity Wong](https://github.com/veritywong)** 👨‍🔧🧑‍🔧👩‍🔧

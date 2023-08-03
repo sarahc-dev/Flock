@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Flock is a mobile app used to help groups of people work out what to do together. Users create an event with a number of friends which generates possible activities based on location. Friends are invited to choose activities with a link that opens the app directly onto the event page. No sign up is required. Each friend makes choices in their own time by using a swiping feature. Once all friends added to the event have made their choices, all of their matching activity choices are displayed on the results page.
+Flock is a mobile app used to help groups of people work out what to do together. Users create an event with a number of friends which generates possible activities based on location. Friends are invited to choose activities with a link that opens the app directly onto the event page. No sign up is required. Each friend makes choices in their own time by using a swiping feature. Once all friends added to the event have made their choices, all of their matching activity choices are displayed on the results page. Check out our demonstration of the app [here](https://www.youtube.com/watch?v=poiWhBTU_ys&t=285s)
 
 ## Setup
 
@@ -53,6 +53,8 @@ expo start -c
 Expo will generate a QR that can be used to open the app on your phone. To do this, you'll need [Expo Go](https://expo.dev/client), which will run the app.
 
 ## Demonstration
+
+We developed Flock as our team's final project for [Makers Academy](https://makers.tech/). To see the app in action, check out our presentation at Makers demo day [here](https://www.youtube.com/watch?v=poiWhBTU_ys&t=285s). In the video, you can also hear us talk about our strategy and development process if you want to know more about the app.
 
 ## Approach
 

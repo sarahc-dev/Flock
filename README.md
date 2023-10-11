@@ -1,5 +1,4 @@
 # Flock App
-![Logo](./sheep-and-bird-cropped.png)
 
 ![Alt Text](./Flock-gif.gif)
 
